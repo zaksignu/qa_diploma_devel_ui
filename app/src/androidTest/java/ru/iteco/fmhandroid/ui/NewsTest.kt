@@ -19,12 +19,13 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.iteco.fmhandroid.dao.DaoModule
+import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
 
 @RunWith(AndroidJUnit4::class)
 class NewsTest {
     private lateinit var device: UiDevice;
-
+    private lateinit var  dWizard : Datawizard;
 
     private var oneX = 540;
 
@@ -73,6 +74,7 @@ class NewsTest {
 
     @Test
     fun leftMenuNews() {
+
         device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
         val claimsLink = UiObject(UiSelector().text("News"))
         claimsLink.click()

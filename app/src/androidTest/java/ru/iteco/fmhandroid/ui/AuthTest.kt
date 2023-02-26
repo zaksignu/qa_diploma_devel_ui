@@ -8,7 +8,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.*
-import okhttp3.internal.wait
 import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert.*
@@ -22,7 +21,6 @@ import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 class AuthTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;
-    private lateinit var  dWiz : UiDevice;
 
 
     private val  LOGIN_CORRECT = "login2"
@@ -73,10 +71,13 @@ class AuthTest {
     @After
     fun finish(){
 
-        val mainLogo = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view"))
-        if (mainLogo.exists()) {
-            device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/authorization_image_button").instance(0)).click()
-            UiObject(UiSelector().text("Log out")).click()
+   //     val mainLogo = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view"))
+        //if (mainLogo.exists()) {
+        if (dWizard.mainTradeMark(device)!!.exists()) {
+            dWizard.mainUsers(device)!!.click()
+            //device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/authorization_image_button").instance(0)).click()
+            dWizard.mainLogOutLink()!!.click()
+        //    UiObject(UiSelector().text("Log out")).click()
         }
     }
 
@@ -88,7 +89,7 @@ class AuthTest {
 //            ).textContains("Login")
 //        )
     //   dWizard.authPageLoginField().text = "login2"
-       dWizard.authPageLoginField().text = LOGIN_CORRECT
+       dWizard.authLoginField().text = LOGIN_CORRECT
       //  loginField.text = "login2"
 
 
@@ -99,24 +100,24 @@ class AuthTest {
 //        )
 //        passwordField.text = "password2"
 //        dWizard.authPagePasswordField().text = "password2"
-        dWizard.authPagePasswordField().text = PASS_CORRECT
-        dWizard.authPageSignInButton().click()
+        dWizard.authPasswordField().text = PASS_CORRECT
+        dWizard.nameSignIn().click()
 //        val signInButton = UiObject(UiSelector().text("SIGN IN"))
 //        signInButton.click()
         // searching for a UI component with a resource Id btn_goto_second
 
-       device.wait(
-            Until.findObject(
-                By.res(
-                    packageName,
-                    "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
-                )
-            ),
-            500 /* wait 500ms */
-        )
-
-//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/authorization_image_button").instance(0)).click()
-////            UiObject(UiSelector().text("Log out")).click()
+//       device.wait(
+//            Until.findObject(
+//                By.res(
+//                    packageName,
+//                    "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+//                )
+//            ),
+//            500 /* wait 500ms */
+//        )
+//
+////        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/authorization_image_button").instance(0)).click()
+//////            UiObject(UiSelector().text("Log out")).click()
 
 
         device.wait(
@@ -147,7 +148,7 @@ class AuthTest {
 //        )
 //
 //        loginField.text = "login"
-dWizard.authPageLoginField().text = "login";
+       dWizard.authLoginField().text = LOGIN_INCORRECT
 
 //        val passwordField = UiDevice.getInstance(getInstrumentation()).findObject(
 //            UiSelector().className(
@@ -155,8 +156,8 @@ dWizard.authPageLoginField().text = "login";
 //            ).textContains("Password")
 //        )
 //        passwordField.text = "password2"
-dWizard.authPagePasswordField().text = "password2"
-        dWizard.authPageSignInButton().click()
+        dWizard.authPasswordField().text = PASS_CORRECT
+        dWizard.nameSignIn().click()
 //        val signInButton = UiObject(UiSelector().text("SIGN IN"))
 //        signInButton.click()
 
@@ -168,37 +169,39 @@ dWizard.authPagePasswordField().text = "password2"
             ).textContains("Login")
         );
 
-    assertTrue(loginFld.exists());
+    //assertTrue(loginFld.exists());
+    assertTrue(dWizard.authLoginField().exists());
    }
 
     @Test
     fun authIncorrectPassAuth(){
-        val loginField = UiDevice.getInstance(getInstrumentation()).findObject(
-            UiSelector().className(
-                EditText::class.java
-            ).textContains("Login")
-        )
-        loginField.text = "login2"
+//        val loginField = UiDevice.getInstance(getInstrumentation()).findObject(
+//            UiSelector().className(
+//                EditText::class.java
+//            ).textContains("Login")
+//        )
+//        loginField.text = "login2"
+        dWizard.authLoginField().text = LOGIN_CORRECT
 
-
-        val passwordField = UiDevice.getInstance(getInstrumentation()).findObject(
-            UiSelector().className(
-                EditText::class.java
-            ).textContains("Password")
-        )
-        passwordField.text = "password"
-
-        val signInButton = UiObject(UiSelector().text("SIGN IN"))
-        signInButton.click()
+//        val passwordField = UiDevice.getInstance(getInstrumentation()).findObject(
+//            UiSelector().className(
+//                EditText::class.java
+//            ).textContains("Password")
+//        )
+//        passwordField.text = "password"
+        dWizard.authPasswordField().text = PASS_INCORRECT
+        dWizard.nameSignIn().click()
+//        val signInButton = UiObject(UiSelector().text("SIGN IN"))
+//        signInButton.click()
 
         device.waitForIdle(500L);
-        val loginFld = UiDevice.getInstance(getInstrumentation()).findObject(
-            UiSelector().className(
-                EditText::class.java
-            ).textContains("Login")
-        );
+//        val loginFld = UiDevice.getInstance(getInstrumentation()).findObject(
+//            UiSelector().className(
+//                EditText::class.java
+//            ).textContains("Login")
+//        );
 
-        assertTrue(loginFld.exists());
+        assertTrue(dWizard.authLoginField().exists());
+    };
     }
 
-}
