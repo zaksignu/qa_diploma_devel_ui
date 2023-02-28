@@ -18,11 +18,11 @@ import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 class ClaimsTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;
-private val executedCard = "Executed"
-private val inProgresCard = "In progress"
-private val canceledCard = "Canceled"
-private val OPEN_CARD = "Open"
-private val blankFilter = "There is nothing here yet"
+//private val executedCard = "Executed"
+//private val inProgresCard = "In progress"
+//private val canceledCard = "Canceled"
+//private val OPEN_CARD = "Open"
+//private val blankFilter = "There is nothing here yet"
 
     //  private lateinit var mDevice: UiDevice
     //   private val BASIC_SAMPLE_PACKAGE = "com.example.android......" // change this to your app's package name
@@ -101,56 +101,80 @@ private val blankFilter = "There is nothing here yet"
      dWizard.allClaimCardInList(device,0)!!.click()
       //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(0)).click()
       //  var typeCard =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/status_label_text_view").instance(0))
-        assertEquals(OPEN_CARD,dWizard.claimCardStatus(device)!!.text)
+        assertEquals(dWizard.OPEN_CARD,dWizard.claimCardStatus(device)!!.text)
 
     }
     @Test
     fun claimsFilterBlank() {
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_in_progress").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
-    val   blankClaims=   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_retry_material_button").instance(0))
-    assertTrue(blankClaims.exists());
+        dWizard.mainAllClaims(device)!!.click()
+
+      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
+        dWizard.allClaimFilterBtn(device)!!.click()
+
+      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
+      //  dWizard.filterClaimInProgress(device)!!.click()
+        dWizard.filterClaimOk(device)!!.click()
+        dWizard.filterClaimInProgress(device)!!.click()
+    //    device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
+     //   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_in_progress").instance(0)).click();
+        dWizard.filterClaimOkBtn(device)!!.click()
+      //  dWizard.filterClaimOkBtn(device)!!.click()
+    //    dWizard.allClaimCardInList(device,0)!!.click()
+        //    device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
+       // dWizard.allClaimCardInList(device,0)!!.click()
+      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
+   // val   blankClaims=   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_retry_material_button").instance(0))
+    assertTrue(dWizard.allClaimBlankResult(device)!!.exists());
 
     }
     @Test
     fun claimsFilterInProgress() {
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
-       device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(0)).click()
-         var typeCard =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/status_label_text_view").instance(0))
-        assertEquals(inProgresCard,typeCard.text)
+
+        dWizard.mainAllClaims(device)!!.click()
+          dWizard.allClaimFilterBtn(device)!!.click()
+        dWizard.filterClaimOk(device)!!.click()
+         dWizard.filterClaimOkBtn(device)!!.click()
+         dWizard.allClaimCardInList(device,0)!!.click()
+        assertEquals(dWizard.IN_PROGRESS_CARD,dWizard.claimCardStatus(device)!!.text)
+
+
 
     }
 
     @Test
     fun claimsFilterExecuted() {
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_in_progress").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_executed").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(0)).click()
-        var typeCard =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/status_label_text_view").instance(0))
-        assertEquals(executedCard,typeCard.text)
+        dWizard.mainAllClaims(device)!!.click()
+        dWizard.allClaimFilterBtn(device)!!.click()
+         dWizard.filterClaimOk(device)!!.click()
+         dWizard.filterClaimInProgress(device)!!.click()
+         dWizard.filterClaimExecuted(device)!!.click()
+        dWizard.filterClaimOkBtn(device)!!.click()
+        dWizard.allClaimCardInList(device,0)!!.click()
+        assertEquals(dWizard.EXECUTED_CARD,dWizard.claimCardStatus(device)!!.text)
+//
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_in_progress").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_executed").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(0)).click()
+//        var typeCard =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/status_label_text_view").instance(0))
+//        assertEquals(executedCard,typeCard.text)
     }
 
     @Test
     fun claimsFilterCanceled() {
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_in_progress").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_cancelled").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(0)).click()
-        var typeCard =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/status_label_text_view").instance(0))
-        assertEquals(canceledCard,typeCard.text)
+
+        dWizard.mainAllClaims(device)!!.click()
+        dWizard.allClaimFilterBtn(device)!!.click()
+        dWizard.filterClaimOk(device)!!.click()
+        dWizard.filterClaimInProgress(device)!!.click()
+        dWizard.filterClaimCancelled(device)!!.click()
+        dWizard.filterClaimOkBtn(device)!!.click()
+        dWizard.allClaimCardInList(device,0)!!.click()
+        assertEquals(dWizard.CANCELED_CARD,dWizard.claimCardStatus(device)!!.text)
+
     }
 
 
