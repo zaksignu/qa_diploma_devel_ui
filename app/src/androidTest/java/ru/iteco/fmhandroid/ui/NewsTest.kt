@@ -58,22 +58,15 @@ class NewsTest {
         )
     }
 
-
+    // Тест 1.5
     @Test
     fun leftMenuNews() {
         dWizard.mainMenu(device)!!.click()
         dWizard.nameNews().click()
 
-
-//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
-//        val claimsLink = UiObject(UiSelector().text("News"))
-//        claimsLink.click()
-
         device.waitForIdle(500L);
         assertTrue(dWizard.nameNews().exists())
-//        val newsFld = UiObject(UiSelector().text("News"));
-//
-//        assertTrue(newsFld.exists());
+
     }
 
     @Test
@@ -97,14 +90,12 @@ class NewsTest {
         assertTrue(longNewsTabHeight > shortNewsTabHeight)
 
     }
-
+// Тест 2.3
     @Test
     fun mainMenuAllNews() {
         dWizard.mainAllNews(device)!!.click()
-        // device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_news_text_view").instance(0)).click();
         device.waitForIdle(500L);
-//        val newsFld = UiObject(UiSelector().text("News"));
-//        assertTrue(newsFld.exists());
+
         assertTrue(dWizard.nameNews().exists())
 
     }

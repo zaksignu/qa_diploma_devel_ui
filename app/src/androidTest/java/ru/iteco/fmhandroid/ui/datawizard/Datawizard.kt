@@ -14,6 +14,8 @@ class Datawizard() {
     val MAIN = "Main"
     val ABOUT = "About"
     val CLAIMS = "Claims"
+    val CANCEL = "Cancel"
+    val THROW_OFF = "Throw off"
 
     val OPEN_CARD = "Open"
     val IN_PROGRESS_CARD = "In progress"
@@ -21,7 +23,6 @@ class Datawizard() {
     val CANCELED_CARD = "Canceled"
 
     var COORD_X = 540;
-
     var COORD_Y_ANNOY = 500;
     var COORD_Y_HB = 700;
 
@@ -33,6 +34,17 @@ class Datawizard() {
     val CONTENT_ANNOY = "Объявление"
     val CONTENT_HB = "Terry"
 
+     val  LOGIN_CORRECT = "login2"
+     val  LOGIN_INCORRECT = "login"
+     val  PASS_CORRECT = "password2"
+     val  PASS_INCORRECT = "password"
+
+    val CLAIM_CREATE_TITLE = "Бобриные специалисты"
+
+    val CLAIM_CREATE_DATE = "01.01.2020"
+    val CLAIM_CREATE_TIME = "09:23"
+    val CLAIM_CREATE_DESCRIPTION = "Бобры - молодцы"
+    
     fun DataWizard() {
 
     }
@@ -40,7 +52,7 @@ class Datawizard() {
     //    fun thisDevice(): Datawizard {
 //        return dev
 //    }
-    fun clickIt(dev: UiDevice, xx: Int,yy: Int): Boolean {
+    fun clickIt(dev: UiDevice, xx: Int, yy: Int): Boolean {
         return dev.click(xx, yy)
     }
 
@@ -66,6 +78,15 @@ class Datawizard() {
         return UiObject(UiSelector().text(CLAIMS))
     }
 
+    fun nameCancel(): UiObject {
+        return UiObject(UiSelector().text(CANCEL))
+    }
+
+
+    fun nameThrownOff(): UiObject {
+        return UiObject(UiSelector().text(THROW_OFF))
+    }
+
     fun authLoginField(): UiObject {
         return UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).findObject(
             UiSelector().className(
@@ -83,8 +104,8 @@ class Datawizard() {
     }
 
 
-    fun authPageAuthImage(): UiObject {
-        return UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).findObject(
+    fun authPageAuthImage(dev: UiDevice): UiObject {
+        return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/authorization_image_button")
         );
     }
@@ -125,11 +146,34 @@ class Datawizard() {
 
     }
 
-    fun mainNewsBlockCollapseBtn(dev: UiDevice): UiObject? {
+    fun mainBlockCollapseBtn(dev: UiDevice, inst : Int): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/expand_material_button").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/expand_material_button").instance(inst)
         );
     }
+
+
+    fun mainWholeNewsBlock(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_news_include_on_fragment_main").instance(0)
+        );
+    }
+
+    fun mainWholeClaimsBlock(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_claim_include_on_fragment_main").instance(0)
+        );
+    }
+
+
+
+
+    fun mainClaimAddNew(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button").instance(0)
+        );
+    }
+
 
     fun mainClaimCard(dev: UiDevice): UiObject? {
         return dev.findObject(
@@ -202,6 +246,30 @@ class Datawizard() {
         );
     }
 
+    fun claimCardStatusProcess(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/status_processing_image_button").instance(0)
+        );
+    }
+
+
+    fun claimCardReturnBtn(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/close_image_button").instance(0)
+        );
+    }
+
+    fun claimCardThrowOffComment(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/editText").instance(0)
+        );
+    }
+
+    fun claimCardThrowOffCommentOkBtn(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("android:id/button1").instance(0)
+        );
+    }
     fun allClaimCardInList(dev: UiDevice, inst: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(inst)
@@ -217,6 +285,48 @@ class Datawizard() {
     fun allClaimBlankResult(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_retry_material_button")
+                .instance(0)
+        );
+    }
+
+    fun claimCreateTitle(dev: UiDevice): UiObject?{
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/title_edit_text")
+                .instance(0)
+        );
+    }
+
+    fun claimCreateExecutor(dev: UiDevice): UiObject?{
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/executor_drop_menu_auto_complete_text_view")
+                .instance(0)
+        );
+    }
+
+    fun claimCreateDate(dev: UiDevice): UiObject?{
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/date_in_plan_text_input_edit_text")
+                .instance(0)
+        );
+    }
+
+    fun claimCreateTime(dev: UiDevice): UiObject?{
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/time_in_plan_text_input_edit_text")
+                .instance(0)
+        );
+    }
+
+    fun claimCreateDescription(dev: UiDevice): UiObject?{
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/description_edit_text")
+                .instance(0)
+        );
+    }
+
+    fun claimCreateSaveBtn(dev: UiDevice): UiObject?{
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/save_button")
                 .instance(0)
         );
     }

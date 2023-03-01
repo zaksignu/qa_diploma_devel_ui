@@ -14,12 +14,15 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
 
 @RunWith(AndroidJUnit4::class)
 class AboutTest {
 
     private lateinit var device: UiDevice;
+    private lateinit var dWizard: Datawizard;
+
 
     //  private lateinit var mDevice: UiDevice
     //   private val BASIC_SAMPLE_PACKAGE = "com.example.android......" // change this to your app's package name
@@ -27,6 +30,7 @@ class AboutTest {
 
     @Before
     fun startMainActivityFromHomeScreen() {
+        dWizard = Datawizard()
         // Initialize UiDevice instance
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
@@ -62,12 +66,14 @@ class AboutTest {
 
     }
 
-
+//Тест 1.7
     @Test
-    fun leftMenuClaims() {
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
-        val claimsLink = UiObject(UiSelector().text("Claims"))
-        claimsLink.click()
+    fun leftMenuAbout() {
+        dWizard.mainMenu(device)!!.click()
+        dWizard.nameAbout().click()
+        device.waitForIdle(500L);
+
+        assertTrue( dWizard.aboutPrivacyBlock(device)!!.exists());
 
     }
 }

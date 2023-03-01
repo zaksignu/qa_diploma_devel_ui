@@ -18,14 +18,7 @@ import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 class ClaimsTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;
-//private val executedCard = "Executed"
-//private val inProgresCard = "In progress"
-//private val canceledCard = "Canceled"
-//private val OPEN_CARD = "Open"
-//private val blankFilter = "There is nothing here yet"
 
-    //  private lateinit var mDevice: UiDevice
-    //   private val BASIC_SAMPLE_PACKAGE = "com.example.android......" // change this to your app's package name
     private val LAUNCH_TIMEOUT = 5000L
 
     @Before
@@ -66,26 +59,25 @@ class ClaimsTest {
 
     }
 
-
+    // Тест 1.6
     @Test
     fun leftMenuClaims() {
 
         dWizard.mainMenu(device)!!.click()
         dWizard.nameClaim().click()
+        device.waitForIdle(500L);
         assertTrue(dWizard.nameClaim().exists())
-       // device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
-      //  val claimsLink = UiObject(UiSelector().text("Claims"))
-      //  claimsLink.click()
 
     }
+
+    // Тест 2.4
     @Test
     fun mainMenuAllClaims() {
         dWizard.mainAllClaims(device)!!.click()
-   //     device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
-    //    val claimsFld = UiObject(UiSelector().text("Claims"));
-        //dWizard.clai
+
         assertTrue(dWizard.allClaimCardInList(device,0)!!.exists());
     }
+
 
     @Test
     fun claimsFilterOpen() {
@@ -177,6 +169,36 @@ class ClaimsTest {
 
     }
 
+
+    @Test
+    fun claimCardMakeCancel() {
+//TODO;;;;
+        dWizard.mainAllClaims(device)!!.click()
+        while(true){
+
+        dWizard.allClaimCardInList(device,0)!!.click()
+        dWizard.claimCardStatusProcess(device)!!.click()
+            device.waitForIdle(500L)
+        dWizard.nameCancel().click()
+        dWizard.claimCardReturnBtn(device)!!.click()}
+
+//        dWizard.claimCreateTitle(device)!!.text = dWizard.CLAIM_CREATE_TITLE
+//        dWizard.claimCreateExecutor(device)!!.click()
+//
+//        dWizard.clickIt(device,dWizard.claimCreateExecutor(device)!!.bounds.centerX(),
+//            dWizard.claimCreateExecutor(device)!!.bounds.centerY() + dWizard.claimCreateExecutor(device)!!.bounds.height())
+//
+//        dWizard.claimCreateDate(device)!!.text = dWizard.CLAIM_CREATE_DATE
+//        dWizard.claimCreateTime(device)!!.text = dWizard.CLAIM_CREATE_TIME
+//        dWizard.claimCreateDescription(device)!!.text = dWizard.CLAIM_CREATE_DESCRIPTION
+////
+
+//        assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
+//        val longBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
+//        dWizard.mainBlockCollapseBtn(device,1)!!.click()
+//        val shortBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
+//        assertTrue(longBlock>shortBlock)
+    }
 
 
 }

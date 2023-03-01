@@ -1,7 +1,9 @@
 package ru.iteco.fmhandroid.ui
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -11,7 +13,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
 
@@ -59,75 +60,98 @@ class MainMenuTest {
             ),
             LAUNCH_TIMEOUT
         )
+       // device.waitForIdle(1500L)
 
-        if (dWizard.authPageAuthImage().exists()){
-            dWizard.authLoginField().text = LOGIN_CORRECT
-            dWizard.authPasswordField().text = PASS_CORRECT
-            device.wait(
-                Until.findObject(
-                    By.res(
-                        packageName,
-                        "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
-                    )
-                ),
-                500 /* wait 500ms */
-            )
-        }
 
     }
-
+// Тест 1.4
     @Test
-    fun leftMenuNews() {
+    fun leftMenuMain() {
         dWizard.mainMenu(device)!!.click()
         dWizard.nameNews().click()
         dWizard.mainMenu(device)!!.click()
         dWizard.nameMain().click()
 
-//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
-//        val claimsLink = UiObject(UiSelector().text("News"))
-//        claimsLink.click()
-      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
-     //   val mainLink = UiObject(UiSelector().text("Main"))
-      //  mainLink.click()
-    //    val newsBlock = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_news_include_on_fragment_main").instance(0))
-     //   val claimsBlock = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_claim_include_on_fragment_main").instance(0))
-//        assertTrue((newsBlock.exists())&&(claimsBlock.exists()))
         assertTrue(dWizard.mainNewsBlock(device)!!.exists())
     }
 
+
+    // Тест 2.1
     @Test
-    fun mainMenuNewsExpand() {
-     //   dWizard.mainNewsBlock(device)
-     //  var newsTab = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_material_card_view").instance(0));
+    fun mainMenuOneNewsExpand() {
+        assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
         val shortNewsTabHeight =   dWizard.mainNewsBlock(device)!!.bounds.height()
-    //    newsTab.click()
         dWizard.mainNewsBlock(device)!!.click()
         val longNewsTabHeight =   dWizard.mainNewsBlock(device)!!.bounds.height()
         assertTrue(longNewsTabHeight>shortNewsTabHeight)
     }
 
+    // Тест 2.2
     @Test
-    fun mainMenuButterfly() {
-//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/main_menu_image_button").instance(0)).click();
-//        val claimsLink = UiObject(UiSelector().text("About"))
-//        claimsLink.click()
-        dWizard.mainMenu(device)!!.click()
-        dWizard.nameAbout().click()
-        device.waitForIdle(500L);
-      // val newsFld = UiObject(UiSelector().text("About"));
-        assertTrue( dWizard.aboutPrivacyBlock(device)!!.exists());
+    fun mainMenuNewsBlockExpand() {
+        assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
+        val longBlock = dWizard.mainWholeNewsBlock(device)!!.bounds.height()
+        dWizard.mainBlockCollapseBtn(device,0)!!.click()
+        val shortBlock = dWizard.mainWholeNewsBlock(device)!!.bounds.height()
+        assertTrue(longBlock>shortBlock)
     }
 
-
+    // Тест 2.5
     @Test
-    fun mainMenuClaimsClick() {
+    fun mainMenuClaimBlockExpand() {
+        assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
+        val longBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
+        dWizard.mainBlockCollapseBtn(device,1)!!.click()
+        val shortBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
+        assertTrue(longBlock>shortBlock)
+    }
 
-        //device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/expand_material_button").instance(0)).click()
-        dWizard.mainNewsBlockCollapseBtn(device)!!.click()
-       // device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(0)).click()
-        dWizard.mainClaimCard(device)!!.click()
-        //val claimsCard =    device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/executor_name_text_view").instance(0)).exists()
+    // Тест 2.6
+    @Test
+    fun mainMenuClaimAddNew() {
+    //TODO AddAssertions
+        dWizard.mainClaimAddNew(device)!!.click()
+        dWizard.claimCreateTitle(device)!!.text = dWizard.CLAIM_CREATE_TITLE
+        dWizard.claimCreateExecutor(device)!!.click()
+
+        dWizard.clickIt(device,dWizard.claimCreateExecutor(device)!!.bounds.centerX(),
+            dWizard.claimCreateExecutor(device)!!.bounds.centerY() + dWizard.claimCreateExecutor(device)!!.bounds.height())
+
+        dWizard.claimCreateDate(device)!!.text = dWizard.CLAIM_CREATE_DATE
+        dWizard.claimCreateTime(device)!!.text = dWizard.CLAIM_CREATE_TIME
+        dWizard.claimCreateDescription(device)!!.text = dWizard.CLAIM_CREATE_DESCRIPTION
+        dWizard.claimCreateSaveBtn(device)!!.click()
+        dWizard.allClaimCardInList(device,0)!!.click()
+      //  assertTrue((dWizard.claimCardInTitle(device)!!.text === dWizard.CLAIM_CREATE_TITLE))
+        dWizard.claimCardStatusProcess(device)!!.click()
+        device.waitForIdle(500L)
+        dWizard.nameThrownOff().click()
+        dWizard.claimCardThrowOffComment(device)!!.text = "1"
+        dWizard.claimCardThrowOffCommentOkBtn(device)!!.click()
+
+        dWizard.claimCardStatusProcess(device)!!.click()
+        device.waitForIdle(500L)
+        dWizard.nameCancel().click()
+        dWizard.claimCardReturnBtn(device)!!.click()
+
+//        assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
+//        val longBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
+//        dWizard.mainBlockCollapseBtn(device,1)!!.click()
+//        val shortBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
+//        assertTrue(longBlock>shortBlock)
+    }
+
+    // Тест 2.7
+    @Test
+    fun mainMenuClaimFirstInBlock() {
+        dWizard.mainBlockCollapseBtn(device,0)!!.click()
+        dWizard.allClaimCardInList(device,0)!!.click()
+
         assertTrue(dWizard.claimCardInTitle(device)!!.exists())
+
     }
+
+
+
 
 }

@@ -19,7 +19,7 @@ import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 @RunWith(AndroidJUnit4::class)
 class ButterflyTest {
     private lateinit var device: UiDevice;
-    private lateinit var  dWizard : Datawizard;
+    private lateinit var dWizard: Datawizard;
 
 
     // change this to your app's package name
@@ -27,7 +27,7 @@ class ButterflyTest {
 
     @Before
     fun startMainActivityFromHomeScreen() {
-        dWizard  = Datawizard()
+        dWizard = Datawizard()
         // Initialize UiDevice instance
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
@@ -40,7 +40,8 @@ class ButterflyTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            LAUNCH_TIMEOUT)
+            LAUNCH_TIMEOUT
+        )
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -48,7 +49,7 @@ class ButterflyTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)), LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -63,18 +64,25 @@ class ButterflyTest {
 
     }
 
+    //Тест 1.9
     @Test
     fun butterflyPageExpand() {
-    dWizard.mainButterflyPic(device)!!.click()
-    //    device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/our_mission_image_button").instance(0)).click();
-
-   //     var newsTab = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/our_mission_item_material_card_view").instance(0));
-
-        val shortNewsTabHeight =      dWizard.butterflyCard(device)!!.bounds.height()
+        dWizard.mainButterflyPic(device)!!.click()
+        val shortNewsTabHeight = dWizard.butterflyCard(device)!!.bounds.height()
         dWizard.butterflyCard(device)!!.click()
+        val longNewsTabHeight = dWizard.butterflyCard(device)!!.bounds.height()
 
-        val longNewsTabHeight =      dWizard.butterflyCard(device)!!.bounds.height()
-        assertTrue(longNewsTabHeight>shortNewsTabHeight)
+        assertTrue(longNewsTabHeight > shortNewsTabHeight)
+
+    }
+
+    //Тест 1.8
+    @Test
+    fun butterflyPageCard() {
+        dWizard.mainButterflyPic(device)!!.click()
+
+        assertTrue(dWizard.butterflyCard(device)!!.isClickable)
+
 
     }
 
