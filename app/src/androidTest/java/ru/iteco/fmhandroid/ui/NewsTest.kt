@@ -1,7 +1,9 @@
 package ru.iteco.fmhandroid.ui
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -68,25 +70,15 @@ class NewsTest {
         assertTrue(dWizard.nameNews().exists())
 
     }
-
+    // Тест 3.1
     @Test
     fun allNewsExpand() {
 
         dWizard.mainAllNews(device)!!.click()
-        //     device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_news_text_view").instance(0)).click()
-        //  dWizard.newsNthCard(device,0)!!.click()
-        //   var newsTab = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_material_card_view").instance(0));
         val shortNewsTabHeight = dWizard.newsNthCard(device, 0)!!.bounds.height();
-//        Log.d(TAG, "22222222");
-//        Log.d(TAG, dWizard.newsNthCard(device,0)!!.bounds.top.toString());
-//        Log.d(TAG, dWizard.newsNthCard(device,0)!!.bounds.bottom.toString());
-//        Log.d(TAG, dWizard.newsNthCard(device,0)!!.bounds.left.toString());
-//        Log.d(TAG, dWizard.newsNthCard(device,0)!!.bounds.right.toString());
-
         dWizard.newsNthCard(device, 0)!!.click()
         val longNewsTabHeight = dWizard.newsNthCard(device, 0)!!.bounds.height()
-//        Log.d(TAG, longNewsTabHeight.toString());
-//        Log.d(TAG, "33333333");
+
         assertTrue(longNewsTabHeight > shortNewsTabHeight)
 
     }
@@ -99,20 +91,20 @@ class NewsTest {
         assertTrue(dWizard.nameNews().exists())
 
     }
-
+    // Тест 3.2
     @Test
     fun allNewsArrangeIt() {
+        //TODO поменять коммент
         dWizard.mainAllNews(device)!!.click()
         // для полноценной проверки требуется работа с базами данных, что выходит за рамки задания этой курсовой
-        //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_news_text_view").instance(0)).click();
-        //   var newsTab = device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_view").instance(0));
+
         val firstTabText = dWizard.newsNthCardTitle(device, 0)!!.text
-        //   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/sort_news_material_button").instance(0)).click();
         dWizard.newsSortBtn(device)!!.click()
         val secondTabText = dWizard.newsNthCardTitle(device, 0)!!.text
         assertTrue(!(firstTabText === secondTabText))
 
     }
+
 
     @Test
     fun allNewsFilterItAnnoun() {
@@ -190,5 +182,105 @@ class NewsTest {
 
     }
 
+    // Тест 3.3
+    @Test
+    fun allNewsAddOneNewsAnnoy() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsBtnToCP(device)!!.click()
+        dWizard.newsCpAddNews(device)!!.click()
+        dWizard.addNewsCategory(device)!!.click()
+        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.addNewsCategory(device)!!.bounds.height())
+        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
+        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
+        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
+        dWizard.addNewsSaveBtn(device)!!.click()
+
+        dWizard.mainMenu(device)!!.click()
+        dWizard.nameMain().click()
+
+       assertTrue( dWizard.newsNthCardTitle(device,0)!!.text == dWizard.ADD_NEWS_TITLE_ORIG)
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsBtnToCP(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
+
+    }
+    // Тест 3.4
+    @Test
+    fun allNewsDelete() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsBtnToCP(device)!!.click()
+        dWizard.newsCpAddNews(device)!!.click()
+        dWizard.addNewsCategory(device)!!.click()
+        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.addNewsCategory(device)!!.bounds.height())
+        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
+        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
+        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
+        dWizard.addNewsSaveBtn(device)!!.click()
+
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
+        assertTrue(dWizard.newsCPBlank(device)!!.exists())
+
+
+    }
+//TODO TBD
+    @Test
+    fun allNewsEdit() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsBtnToCP(device)!!.click()
+        dWizard.newsCpAddNews(device)!!.click()
+        dWizard.addNewsCategory(device)!!.click()
+        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.addNewsCategory(device)!!.bounds.height())
+        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
+        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
+        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
+        dWizard.addNewsSaveBtn(device)!!.click()
+    //    makeMeOneNews()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
+        assertTrue(dWizard.newsCPBlank(device)!!.exists())
+
+
+    }
+
+
+    fun makeMeOneNews(){
+
+//        dWizard.mainAllNews(device)!!.click()
+//        dWizard.newsBtnToCP(device)!!.click()
+//        dWizard.newsCpAddNews(device)!!.click()
+//        dWizard.addNewsCategory(device)!!.click()
+//        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+//            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+//                    dWizard.addNewsCategory(device)!!.bounds.height())
+//        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
+//        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
+//        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
+//        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
+//        dWizard.addNewsSaveBtn(device)!!.click()
+
+    }
 
 }

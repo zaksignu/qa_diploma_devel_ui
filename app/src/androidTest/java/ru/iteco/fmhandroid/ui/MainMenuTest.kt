@@ -1,9 +1,7 @@
 package ru.iteco.fmhandroid.ui
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -127,7 +125,7 @@ class MainMenuTest {
         device.waitForIdle(500L)
         dWizard.nameThrownOff().click()
         dWizard.claimCardThrowOffComment(device)!!.text = "1"
-        dWizard.claimCardThrowOffCommentOkBtn(device)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
 
         dWizard.claimCardStatusProcess(device)!!.click()
         device.waitForIdle(500L)
