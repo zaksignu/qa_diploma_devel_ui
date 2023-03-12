@@ -8,6 +8,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
+import io.qameta.allure.android.runners.AllureAndroidJUnit4
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.*
 import org.junit.Before
@@ -15,8 +16,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
-
-@RunWith(AndroidJUnit4::class)
+@RunWith(AllureAndroidJUnit4::class)
+//@RunWith(AndroidJUnit4::class)
 class NewsTest {
     private lateinit var device: UiDevice;
     private lateinit var dWizard: Datawizard;

@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
+import io.qameta.allure.android.runners.AllureAndroidJUnit4
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.*
 import org.junit.Before
@@ -17,8 +18,8 @@ import org.junit.runner.RunWith
 
 
 
-
-@RunWith(AndroidJUnit4::class)
+@RunWith(AllureAndroidJUnit4::class)
+//@RunWith(AndroidJUnit4::class)
 class ClaimsCardTest {
 
     private val commentForAdd = "Пчеловод был тут"
