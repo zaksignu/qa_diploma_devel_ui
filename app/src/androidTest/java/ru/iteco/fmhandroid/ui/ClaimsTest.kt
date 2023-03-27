@@ -79,7 +79,7 @@ class ClaimsTest {
         assertTrue(dWizard.allClaimCardInList(device,0)!!.exists());
     }
 
-
+    // Тест 4.1
     @Test
     fun claimsFilterOpen() {
         dWizard.mainAllClaims(device)!!.click()
@@ -97,6 +97,7 @@ class ClaimsTest {
         assertEquals(dWizard.OPEN_CARD,dWizard.claimCardStatus(device)!!.text)
 
     }
+
     @Test
     fun claimsFilterBlank() {
         dWizard.mainAllClaims(device)!!.click()
@@ -120,6 +121,8 @@ class ClaimsTest {
     assertTrue(dWizard.allClaimBlankResult(device)!!.exists());
 
     }
+
+    // Тест 4.2
     @Test
     fun claimsFilterInProgress() {
 
@@ -133,7 +136,7 @@ class ClaimsTest {
 
 
     }
-
+    // Тест 4.3
     @Test
     fun claimsFilterExecuted() {
         dWizard.mainAllClaims(device)!!.click()
@@ -155,7 +158,7 @@ class ClaimsTest {
 //        var typeCard =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/status_label_text_view").instance(0))
 //        assertEquals(executedCard,typeCard.text)
     }
-
+    // Тест 4.4
     @Test
     fun claimsFilterCanceled() {
 
@@ -168,6 +171,15 @@ class ClaimsTest {
         dWizard.allClaimCardInList(device,0)!!.click()
         assertEquals(dWizard.CANCELED_CARD,dWizard.claimCardStatus(device)!!.text)
 
+    }
+
+
+    // Тест 2.4
+    @Test
+    fun claimsOneCard() {
+        dWizard.mainAllClaims(device)!!.click()
+        dWizard.allClaimCardInList(device,0)!!.click()
+        assertTrue(dWizard.allClaimCardInList(device,0)!!.exists());
     }
 
 

@@ -25,6 +25,12 @@ class Datawizard() {
     var COORD_X = 540;
     var COORD_Y_ANNOY = 500;
     var COORD_Y_HB = 700;
+    var COORD_Y_SALAR = 900;
+    var COORD_Y_UNION = 1000;
+    var COORD_Y_HOL = 1100;
+    var COORD_Y_MASS = 1200;
+    var COORD_Y_GRAT = 1400;
+
 
     val FIRST_ANNOY_DATE = "12.01.2023"
     val LAST_ANNOY_DATE = "25.01.2023"
@@ -32,7 +38,13 @@ class Datawizard() {
     val LAST_TERRY_DATE = "31.01.2023"
 
     val CONTENT_ANNOY = "Объявление"
-    val CONTENT_HB = "Terry"
+    val CONTENT_HB = "День рождения"
+    val CONTENT_SALAR = "Зарплата"
+    val CONTENT_UNION = "Профсоюз"
+    val CONTENT_HOL = "Праздник"
+    val CONTENT_MASS = "Массаж"
+    val CONTENT_GRAT = "Благодарность"
+  //  val CONTENT_HB = "Terry"
 
      val  LOGIN_CORRECT = "login2"
      val  LOGIN_INCORRECT = "login"
@@ -49,9 +61,13 @@ class Datawizard() {
     val ADD_NEWS_TITLE_EDITED = "Боброводы бобров"
     val ADD_NEWS_DESCR_ORIG = "Пчелы добра"
     val ADD_NEWS_DESCR_EDITED = "Бобры бобра"
-    val ADD_NEWS_DATE = "01.03.2023"
+    val ADD_NEWS_DATE_ORIG = "01.03.2023"
+    val ADD_NEWS_DATE_EDITED = "02.03.2023"
     val ADD_NEWS_TIME = "01:20"
 
+
+    val ACTIVE_MRK = "Active"
+    val NOT_ACTIVE_MRK = "Not active"
     fun DataWizard() {
 
     }
@@ -63,7 +79,7 @@ class Datawizard() {
         return dev.click(xx, yy)
     }
 
-
+// Names for buttons & etc
 
     fun nameSignIn(): UiObject {
         return UiObject(UiSelector().text(SIGN_IN))
@@ -98,6 +114,8 @@ class Datawizard() {
         return UiObject(UiSelector().text(THROW_OFF))
     }
 
+    // Auth page block
+
     fun authLoginField(): UiObject {
         return UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).findObject(
             UiSelector().className(
@@ -120,6 +138,8 @@ class Datawizard() {
             UiSelector().resourceId("ru.iteco.fmhandroid:id/authorization_image_button")
         );
     }
+
+    // Main page block
 
     fun mainTradeMark(dev: UiDevice): UiObject? {
         return dev.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view"))
@@ -211,6 +231,7 @@ class Datawizard() {
         );
     }
 
+    //News page block
     fun newsNthCard(dev: UiDevice, i: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_material_card_view")
@@ -242,9 +263,17 @@ class Datawizard() {
         );
     }
 
+    //News Control Panel block
     fun newsCpAddNews(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/add_news_image_view")
+                .instance(0)
+        );
+    }
+
+    fun newsCpEditNews(dev: UiDevice,  i : Int): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/edit_news_item_image_view")
                 .instance(0)
         );
     }
@@ -262,6 +291,7 @@ class Datawizard() {
         );
     }
 
+    //Add news page
     fun addNewsCategory(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
@@ -306,6 +336,40 @@ class Datawizard() {
 
 
 
+    //Edit News block
+    //TODO - its double
+    fun editNewsTitle(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_input_edit_text").instance(0)
+        );
+    }
+
+    fun editNewsCategory(dev: UiDevice): UiObject? {
+
+        return addNewsCategory(dev)
+//        dev.findObject(
+//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
+//                .instance(0)
+     //   );
+    }
+
+    fun editNewsDate(dev: UiDevice): UiObject? {
+        return addNewsDate(dev)
+//        dev.findObject(
+//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_publish_date_text_input_edit_text")
+//                .instance(0)
+//        );
+    }
+
+    fun editNewsDescription(dev: UiDevice): UiObject? {
+        return addNewsDescription(dev)
+//        dev.findObject(
+//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_description_text_input_edit_text")
+//                .instance(0)
+//        );
+    }
+
+//About page
 
     fun aboutPrivacyBlock(dev: UiDevice): UiObject? {
         return dev.findObject(
@@ -314,6 +378,7 @@ class Datawizard() {
         );
     }
 
+    //Butterfly page
     fun butterflyCard(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/our_mission_item_material_card_view")
@@ -321,6 +386,7 @@ class Datawizard() {
         );
     }
 
+    // Add Claim page
     fun claimCardInTitle(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/title_label_text_view").instance(0)
@@ -352,25 +418,6 @@ class Datawizard() {
         );
     }
 
-
-    fun allClaimCardInList(dev: UiDevice, inst: Int): UiObject? {
-        return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(inst)
-        );
-    }
-
-    fun allClaimFilterBtn(dev: UiDevice): UiObject? {
-        return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)
-        );
-    }
-
-    fun allClaimBlankResult(dev: UiDevice): UiObject? {
-        return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_retry_material_button")
-                .instance(0)
-        );
-    }
 
     fun claimCreateTitle(dev: UiDevice): UiObject?{
         return dev.findObject(
@@ -413,7 +460,26 @@ class Datawizard() {
                 .instance(0)
         );
     }
+    //All claims page
+    fun allClaimCardInList(dev: UiDevice, inst: Int): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(inst)
+        );
+    }
 
+    fun allClaimFilterBtn(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)
+        );
+    }
+
+    fun allClaimBlankResult(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_retry_material_button")
+                .instance(0)
+        );
+    }
+//Claims filter block
     fun filterClaimOk(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)

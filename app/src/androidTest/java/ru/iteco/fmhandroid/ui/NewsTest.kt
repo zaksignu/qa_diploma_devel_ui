@@ -1,11 +1,8 @@
 package ru.iteco.fmhandroid.ui
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
 import io.qameta.allure.android.runners.AllureAndroidJUnit4
@@ -102,60 +99,136 @@ class NewsTest {
         val firstTabText = dWizard.newsNthCardTitle(device, 0)!!.text
         dWizard.newsSortBtn(device)!!.click()
         val secondTabText = dWizard.newsNthCardTitle(device, 0)!!.text
+
         assertTrue(!(firstTabText === secondTabText))
 
     }
 
-
+    // Тест 3.3
+    // для полноценного теста необходима работа с БД
     @Test
     fun allNewsFilterItAnnoun() {
         dWizard.mainAllNews(device)!!.click()
-
-        // device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_news_text_view").instance(0)).click();
-
         dWizard.newsFiltrBtn(device)!!.click()
-        //   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_news_material_button").instance(0)).click();
         dWizard.filterNewsCategory(device)!!.click()
         device.waitForIdle(500L);
-        //   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view").instance(0)).click();
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_ANNOY)
         device.waitForIdle(500L);
-        //  device.click(oneX, announY)
-//        dWizard.filterNewsFirstDate(device)!!.text = dWizard.FIRST_ANNOY_DATE
-  //      device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_publish_date_start_text_input_edit_text").instance(0)).setText("08.01.2023");
-                 dWizard.filterNewsFirstDate(device)!!.text = dWizard.FIRST_ANNOY_DATE
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.FIRST_ANNOY_DATE
         dWizard.filterNewsLastDate(device)!!.text = dWizard.LAST_ANNOY_DATE
         dWizard.filterNewsOkBtn(device)!!.click()
-        //device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_button").instance(0)).click();
-        //    val filterTxt =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_view").instance(0)).text
-        //     assertTrue(filterTxt.contains("Объявление"))
-        // dWizard.newsSortBtn(device)
-        //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_publish_date_start_text_input_edit_text").instance(0)).setText("08.01.2023");
-        //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_publish_date_end_text_input_edit_text").instance(0)).setText("31.01.2023");
-        // 12-01
-        //  25-02
+
+
         assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_ANNOY))
 
     }
 
+    // Тест 3.4
+    // для полноценного теста необходима работа с БД
     @Test
-    fun allNewsFilterItHb() {
+    fun allNewsFilterItHB() {
         dWizard.mainAllNews(device)!!.click()
-
         dWizard.newsFiltrBtn(device)!!.click()
-
         dWizard.filterNewsCategory(device)!!.click()
         device.waitForIdle(500L);
-
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_HB)
+        device.waitForIdle(500L);
 
         dWizard.filterNewsOkBtn(device)!!.click()
 
 
-
         assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_HB))
 
+    }
 
+    // Тест 3.5
+    // для полноценного теста необходима работа с БД
+    @Test
+    fun allNewsFilterItSal() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsCategory(device)!!.click()
+        device.waitForIdle(500L);
+        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_SALAR)
+        device.waitForIdle(500L);
+
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+
+        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_SALAR))
+
+    }
+
+    // Тест 3.6
+    // для полноценного теста необходима работа с БД
+    @Test
+    fun allNewsFilterItUni() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsCategory(device)!!.click()
+        device.waitForIdle(500L);
+        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_UNION)
+        device.waitForIdle(500L);
+
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+
+        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_UNION))
+
+    }
+
+    // Тест 3.7
+    // для полноценного теста необходима работа с БД
+    @Test
+    fun allNewsFilterItHol() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsCategory(device)!!.click()
+        device.waitForIdle(500L);
+        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_HOL)
+        device.waitForIdle(500L);
+
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+
+        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_HOL))
+
+    }
+
+
+    // Тест 3.8
+    // для полноценного теста необходима работа с БД
+    @Test
+    fun allNewsFilterItMass() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsCategory(device)!!.click()
+        device.waitForIdle(500L);
+        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_MASS)
+        device.waitForIdle(500L);
+
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+
+        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_MASS))
+
+    }
+
+    // Тест 3.9
+    // для полноценного теста необходима работа с БД
+    @Test
+    fun allNewsFilterItGrat() {
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsCategory(device)!!.click()
+        device.waitForIdle(500L);
+        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_GRAT)
+        device.waitForIdle(500L);
+
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+
+        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_GRAT))
 
     }
 
@@ -183,62 +256,6 @@ class NewsTest {
 
     }
 
-    // Тест 3.3
-    @Test
-    fun allNewsAddOneNewsAnnoy() {
-        dWizard.mainAllNews(device)!!.click()
-        dWizard.newsBtnToCP(device)!!.click()
-        dWizard.newsCpAddNews(device)!!.click()
-        dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-            dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
-        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
-        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
-        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
-        dWizard.addNewsSaveBtn(device)!!.click()
-
-        dWizard.mainMenu(device)!!.click()
-        dWizard.nameMain().click()
-
-       assertTrue( dWizard.newsNthCardTitle(device,0)!!.text == dWizard.ADD_NEWS_TITLE_ORIG)
-        dWizard.mainAllNews(device)!!.click()
-        dWizard.newsBtnToCP(device)!!.click()
-        dWizard.newsFiltrBtn(device)!!.click()
-        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
-        dWizard.popUpOkBtn(device)!!.click()
-
-    }
-    // Тест 3.4
-    @Test
-    fun allNewsDelete() {
-        dWizard.mainAllNews(device)!!.click()
-        dWizard.newsBtnToCP(device)!!.click()
-        dWizard.newsCpAddNews(device)!!.click()
-        dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-            dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
-        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
-        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
-        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
-        dWizard.addNewsSaveBtn(device)!!.click()
-
-        dWizard.newsFiltrBtn(device)!!.click()
-        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
-        dWizard.popUpOkBtn(device)!!.click()
-        assertTrue(dWizard.newsCPBlank(device)!!.exists())
-
-
-    }
 //TODO TBD
     @Test
     fun allNewsEdit() {
@@ -250,14 +267,14 @@ class NewsTest {
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
                     dWizard.addNewsCategory(device)!!.bounds.height())
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
-        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
         dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
         dWizard.addNewsSaveBtn(device)!!.click()
     //    makeMeOneNews()
         dWizard.newsFiltrBtn(device)!!.click()
-        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
-        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
         dWizard.newsCpDeleteNews(device,0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()

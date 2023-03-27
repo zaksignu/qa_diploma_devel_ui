@@ -7,6 +7,27 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.firebase.crashlytics'
+    id("io.qameta.allure")  version "2.11.2"
+//    id("io.qameta.allure-aggregate-report") version "2.11.2"
+   // id 'io.qameta.allure'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+allure {
+    autoconfigure = true
+
+    version = '2.14.0'
+    //resultsDir = file("$projectDir/build/_allure-results")
+
+    adapter {
+        frameworks {
+            junit4
+        }
+    }
 }
 
 android {
@@ -49,9 +70,7 @@ android {
         }
     }
 }
-repositories {
-    mavenCentral()
-}
+
 
 dependencies {
     testImplementation 'junit:junit:4.12'
