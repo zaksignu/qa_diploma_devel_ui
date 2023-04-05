@@ -31,6 +31,14 @@ class Datawizard() {
     var COORD_Y_MASS = 1200;
     var COORD_Y_GRAT = 1400;
 
+    var COORD_D_Y_ANNOY = 150;
+    var COORD_D_Y_HB = 300;
+    var COORD_D_Y_SALAR = 450;
+    var COORD_D_Y_UNION = 600;
+ //   var COORD_Y_HOL = 1100;
+  //  var COORD_Y_MASS = 1200;
+ //   var COORD_Y_GRAT = 1400;
+
 
     val FIRST_ANNOY_DATE = "12.01.2023"
     val LAST_ANNOY_DATE = "25.01.2023"
@@ -53,7 +61,7 @@ class Datawizard() {
 
     val CLAIM_CREATE_TITLE = "Бобриные специалисты"
 
-    val CLAIM_CREATE_DATE = "01.01.2020"
+    val CLAIM_CREATE_DATE = "02.04.2023"
     val CLAIM_CREATE_TIME = "09:23"
     val CLAIM_CREATE_DESCRIPTION = "Бобры - молодцы"
 
@@ -207,9 +215,10 @@ class Datawizard() {
 
 
     fun mainClaimAddNew(dev: UiDevice): UiObject? {
-        return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button").instance(0)
-        );
+        return allClaimAddClaim(dev)
+//        dev.findObject(
+//            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button").instance(0)
+//        );
     }
 
 
@@ -271,9 +280,37 @@ class Datawizard() {
         );
     }
 
+    fun newsCpFilterActive(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_news_active_material_check_box")
+                .instance(0)
+        );
+    }
+
+    fun newsCpFilterInActive(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_news_inactive_material_check_box")
+                .instance(0)
+        );
+    }
+
+
+    fun newsCpNthNewsDescription(dev: UiDevice, i :Int ): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_description_text_view")
+                .instance(i)
+        );
+    }
     fun newsCpEditNews(dev: UiDevice,  i : Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/edit_news_item_image_view")
+                .instance(0)
+        );
+    }
+
+    fun newsCpEditSwitchBox(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/switcher")
                 .instance(0)
         );
     }
@@ -455,12 +492,21 @@ class Datawizard() {
     }
 
     fun claimCreateSaveBtn(dev: UiDevice): UiObject?{
-        return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/save_button")
-                .instance(0)
-        );
+        return addNewsSaveBtn(dev)
+//
+//        dev.findObject(
+//            UiSelector().resourceId("ru.iteco.fmhandroid:id/save_button")
+//                .instance(0)
+//        );
     }
     //All claims page
+
+    fun allClaimAddClaim(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button").instance(0)
+        );
+    }
+
     fun allClaimCardInList(dev: UiDevice, inst: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_card").instance(inst)
@@ -512,10 +558,11 @@ class Datawizard() {
     }
 
     fun filterNewsCategory(dev: UiDevice): UiObject? {
-        return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
-                .instance(0)
-        );
+        return addNewsCategory(dev)
+//        dev.findObject(
+//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
+//                .instance(0)
+//        );
     }
 
     fun filterNewsOkBtn(dev: UiDevice): UiObject? {

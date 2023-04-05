@@ -187,7 +187,7 @@ class NewsControlPanelTest {
     // Тест 3.17
     @Test
     fun newsPanelArrangeIt() {
-        //TODO поменять коммент
+
         dWizard.mainAllNews(device)!!.click()
         dWizard.newsBtnToCP(device)!!.click()
         // для полноценной проверки требуется работа с базами данных, что выходит за рамки задания этой курсовой
@@ -476,20 +476,20 @@ class NewsControlPanelTest {
 
 
     // Тест 3.21
-    //TODO доделать ассерт
-
+    //TODO доделать ассерт.Остальное работает
+//
     @Test
     fun newsPanelEditCategory() {
+
         dWizard.mainAllNews(device)!!.click()
         dWizard.newsBtnToCP(device)!!.click()
         dWizard.newsCpAddNews(device)!!.click()
 
         //Добавляем новость
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-            dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
-
+        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
+                                dWizard.addNewsCategory(device)!!.bounds.centerY()+
+                                        dWizard.COORD_D_Y_ANNOY)
 
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
         dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
@@ -500,27 +500,36 @@ class NewsControlPanelTest {
 
         //Выводим новость через фыильтр по дате
         dWizard.newsFiltrBtn(device)!!.click()
+
+        dWizard.filterNewsCategory(device)!!.click();
+        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY()+
+                    dWizard.COORD_D_Y_ANNOY)
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
         device.waitForIdle(500L);
+
         // Редактируем  первую новость
         dWizard.newsCpEditNews(device,0)!!.click()
+
         // Редактируем категорию
-
-        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_UNION)
-
-       // dWizard.editNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_EDITED
-    //    dWizard.editNewsCategory(device)!!.click()
-
-//        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-//            dWizard.addNewsCategory(device)!!.bounds.centerY() +
-//                    dWizard.addNewsCategory(device)!!.bounds.height())
+        dWizard.filterNewsCategory(device)!!.click();
+        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY()+
+                    dWizard.COORD_D_Y_HB)
 
         dWizard.addNewsSaveBtn(device)!!.click()
         device.waitForIdle(500L);
+
        //фильтруем результат и получаем отредактируемую новость
         dWizard.newsFiltrBtn(device)!!.click()
+
+        dWizard.filterNewsCategory(device)!!.click();
+        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY()+
+                    dWizard.COORD_D_Y_HB)
+
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
@@ -549,7 +558,7 @@ class NewsControlPanelTest {
     ////
 
     // Тест 3.22
-    //TODO доделать ассерт
+    //TODO доделать ассерт.Остльное работает
 
     @Test
     fun newsPanelEditDate() {
@@ -605,12 +614,12 @@ class NewsControlPanelTest {
         //Удаляем добавленную новость
 //        dWizard.mainAllNews(device)!!.click()
 //        dWizard.newsBtnToCP(device)!!.click()
-//        dWizard.newsFiltrBtn(device)!!.click()
-//        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
-//        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
-//        dWizard.filterNewsOkBtn(device)!!.click()
-//        dWizard.newsCpDeleteNews(device,0)!!.click()
-//        dWizard.popUpOkBtn(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_EDITED
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_EDITED
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
 
 //        dWizard.newsCpDeleteNews(device,0)!!.click()
 //        dWizard.popUpOkBtn(device)!!.click()
@@ -620,7 +629,6 @@ class NewsControlPanelTest {
     }
 
 // Тест 3.23
-    //TODO доделать ассерт
 
     @Test
     fun newsPanelEditDescription() {
@@ -640,6 +648,7 @@ class NewsControlPanelTest {
         dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
         dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
         dWizard.addNewsSaveBtn(device)!!.click()
+
         device.waitForIdle(500L);
 
         //Выводим новость через фыильтр по дате
@@ -648,6 +657,7 @@ class NewsControlPanelTest {
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
         device.waitForIdle(500L);
+        dWizard.newsNthCard(device,0)!!.click()
         // Редактируем  первую новость
         dWizard.newsCpEditNews(device,0)!!.click()
         // Редактируем описание
@@ -664,8 +674,9 @@ class NewsControlPanelTest {
 
         dWizard.addNewsSaveBtn(device)!!.click()
         device.waitForIdle(500L);
+        dWizard.newsNthCard(device,0)!!.click()
 
-        // assertTrue( dWizard.newsNthCardTitle(device,0)!!.text.toString() == dWizard.ADD_NEWS_TITLE_EDITED.toString())
+        assertTrue( dWizard.newsCpNthNewsDescription(device,0)!!.text.toString() == dWizard.ADD_NEWS_DESCR_EDITED.toString())
 //        assertEquals( dWizard.ADD_NEWS_TITLE_EDITED, dWizard.newsNthCardTitle(device,0)!!.text.toString())
         //Удаляем добавленную новость
 //        dWizard.mainAllNews(device)!!.click()
@@ -674,8 +685,8 @@ class NewsControlPanelTest {
 //        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE
 //        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE
 //        dWizard.filterNewsOkBtn(device)!!.click()
-//        dWizard.newsCpDeleteNews(device,0)!!.click()
-//        dWizard.popUpOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
 
 //        dWizard.newsCpDeleteNews(device,0)!!.click()
 //        dWizard.popUpOkBtn(device)!!.click()
@@ -705,6 +716,7 @@ class NewsControlPanelTest {
 //
 //    }
     // Тест 3.24
+    //TODO: добавить ассерты
     @Test
     fun newsPanelEditStatusActive(){
 
@@ -730,19 +742,36 @@ class NewsControlPanelTest {
     dWizard.newsFiltrBtn(device)!!.click()
     dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
     dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.newsCpFilterInActive(device)!!.click()
     dWizard.filterNewsOkBtn(device)!!.click()
     device.waitForIdle(500L);
+
     // Редактируем  первую новость
     dWizard.newsCpEditNews(device,0)!!.click()
     // Редактируем статус
     // т.к. при создаании новости по умолчанию у ней статус активен, то надо отредактировать статус в "неактивный" а затем в актиывный
 
-    //TODO опилить
+    dWizard.newsCpEditSwitchBox(device)!!.click()
+    dWizard.addNewsSaveBtn(device)!!.click()
 
-//        val chBox = UiObject(UiSelector().text(dWizard.NOT_ACTIVE_MRK))
-//    dWizard.clickIt(device,(chBox.bounds.left+(2*chBox.bounds.height()%2)),(chBox.bounds.top+(chBox.bounds.width()%8)))
-//      //  device.click((chBox.bounds.left+(2*chBox.bounds.height()%2)),(chBox.bounds.top+(chBox.bounds.width()%8)))
-//    dWizard.addNewsSaveBtn(device)!!.click()
+    dWizard.newsFiltrBtn(device)!!.click()
+    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.newsCpFilterActive(device)!!.click()
+    dWizard.filterNewsOkBtn(device)!!.click()
+
+    dWizard.newsCpEditNews(device,0)!!.click()
+
+    dWizard.newsCpEditSwitchBox(device)!!.click()
+    dWizard.addNewsSaveBtn(device)!!.click()
+
+    dWizard.newsFiltrBtn(device)!!.click()
+    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.newsCpFilterInActive(device)!!.click()
+    dWizard.filterNewsOkBtn(device)!!.click()
+
+
 //
 //   //     device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_button").instance(0)).click();
 //
@@ -750,6 +779,63 @@ class NewsControlPanelTest {
 //        assertTrue(filterTxt.equals(activeLabel))
 
     }
+
+
+//3.25
+    //TODO: добавить ассерты
+    @Test
+    fun newsPanelEditStatusNotActive(){
+
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsBtnToCP(device)!!.click()
+        dWizard.newsCpAddNews(device)!!.click()
+
+        //Добавляем новость
+        dWizard.addNewsCategory(device)!!.click()
+        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.addNewsCategory(device)!!.bounds.height())
+
+
+        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
+        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
+        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
+        dWizard.addNewsSaveBtn(device)!!.click()
+        device.waitForIdle(500L);
+
+        //Выводим новость через фыильтр по дате
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.newsCpFilterInActive(device)!!.click()
+        dWizard.filterNewsOkBtn(device)!!.click()
+        device.waitForIdle(500L);
+
+        // Редактируем  первую новость
+        dWizard.newsCpEditNews(device,0)!!.click()
+        // Редактируем статус
+        // т.к. при создаании новости по умолчанию у ней статус активен, то надо отредактировать статус в "неактивный" а затем в актиывный
+
+        dWizard.newsCpEditSwitchBox(device)!!.click()
+        dWizard.addNewsSaveBtn(device)!!.click()
+
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.newsCpFilterActive(device)!!.click()
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+//
+//   //     device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_button").instance(0)).click();
+//
+//        val filterTxt =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_published_text_view").instance(0)).text
+//        assertTrue(filterTxt.equals(activeLabel))
+
+    }
+
+
+
 //    // Тест 3.25
 //    @Test
 //    fun allNewsFilterItAnnounNotActive(){
@@ -773,27 +859,27 @@ class NewsControlPanelTest {
 //    }
 
 
-    // Тест 3.25
-    @Test
-    fun allNewsFilterItAnnounNotActive(){
-
-
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_news_text_view").instance(0)).click();
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/edit_news_material_button").instance(0)).click()
-
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_news_material_button").instance(0)).click();
-
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view").instance(0)).click();
-        device.click(oneX, announY)
-
-        val chBox = UiObject(UiSelector().text(activeMark))
-        device.click((chBox.bounds.left+(2*chBox.bounds.height()%2)),(chBox.bounds.top+(chBox.bounds.width()%8)))
-
-        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_button").instance(0)).click();
-
-        val filterTxt =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_published_text_view").instance(0)).text
-        assertTrue(filterTxt.equals(notActiveLabel))
-    }
+//    // Тест 3.25
+//    @Test
+//    fun allNewsFilterItAnnounNotActive(){
+//
+//
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_news_text_view").instance(0)).click();
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/edit_news_material_button").instance(0)).click()
+//
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_news_material_button").instance(0)).click();
+//
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view").instance(0)).click();
+//        device.click(oneX, announY)
+//
+//        val chBox = UiObject(UiSelector().text(activeMark))
+//        device.click((chBox.bounds.left+(2*chBox.bounds.height()%2)),(chBox.bounds.top+(chBox.bounds.width()%8)))
+//
+//        device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_button").instance(0)).click();
+//
+//        val filterTxt =  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_published_text_view").instance(0)).text
+//        assertTrue(filterTxt.equals(notActiveLabel))
+//    }
 
 
 
