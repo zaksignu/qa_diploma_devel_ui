@@ -27,7 +27,7 @@ class AboutTest {
 
     //  private lateinit var mDevice: UiDevice
     //   private val BASIC_SAMPLE_PACKAGE = "com.example.android......" // change this to your app's package name
-    private val LAUNCH_TIMEOUT = 5000L
+
 
     @Before
     fun startMainActivityFromHomeScreen() {
@@ -44,7 +44,7 @@ class AboutTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT)
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -52,7 +52,7 @@ class AboutTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -61,7 +61,7 @@ class AboutTest {
                 By.pkg(packageName)
                     .depth(0)
             ),
-            LAUNCH_TIMEOUT
+            dWizard.LAUNCH_TIMEOUT
         )
 
 
@@ -75,6 +75,5 @@ class AboutTest {
         device.waitForIdle(500L);
 
         assertTrue( dWizard.aboutPrivacyBlock(device)!!.exists());
-
     }
 }

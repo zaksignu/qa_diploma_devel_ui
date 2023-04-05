@@ -7,7 +7,7 @@ import androidx.test.uiautomator.*
 class Datawizard() {
 
     //private lateinit var device: UiDevice;
-    private val LAUNCH_TIMEOUT = 5000L
+    val LAUNCH_TIMEOUT = 5000L
 
     val SIGN_IN = "SIGN IN"
     val NEWS = "News"
@@ -80,9 +80,7 @@ class Datawizard() {
 
     }
 
-    //    fun thisDevice(): Datawizard {
-//        return dev
-//    }
+
     fun clickIt(dev: UiDevice, xx: Int, yy: Int): Boolean {
         return dev.click(xx, yy)
     }

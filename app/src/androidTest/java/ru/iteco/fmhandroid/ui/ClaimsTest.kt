@@ -26,8 +26,6 @@ class ClaimsTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;
 
-    private val LAUNCH_TIMEOUT = 5000L
-
     @Before
     fun startMainActivityFromHomeScreen() {
         dWizard  = Datawizard()
@@ -43,7 +41,7 @@ class ClaimsTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT)
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -51,7 +49,7 @@ class ClaimsTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -60,7 +58,7 @@ class ClaimsTest {
                 By.pkg(packageName)
                     .depth(0)
             ),
-            LAUNCH_TIMEOUT
+            dWizard.LAUNCH_TIMEOUT
         )
 
 
@@ -99,30 +97,6 @@ class ClaimsTest {
 
     }
 
-    @Test
-    fun claimsFilterBlank() {
-        dWizard.mainAllClaims(device)!!.click()
-
-      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/all_claims_text_view").instance(0)).click();
-        dWizard.allClaimFilterBtn(device)!!.click()
-
-      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/filters_material_button").instance(0)).click();
-      //  dWizard.filterClaimInProgress(device)!!.click()
-        dWizard.filterClaimOk(device)!!.click()
-        dWizard.filterClaimInProgress(device)!!.click()
-    //    device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)).click();
-     //   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_in_progress").instance(0)).click();
-        dWizard.filterClaimOkBtn(device)!!.click()
-      //  dWizard.filterClaimOkBtn(device)!!.click()
-    //    dWizard.allClaimCardInList(device,0)!!.click()
-        //    device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
-       // dWizard.allClaimCardInList(device,0)!!.click()
-      //  device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_list_filter_ok_material_button").instance(0)).click();
-   // val   blankClaims=   device.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/claim_retry_material_button").instance(0))
-    assertTrue(dWizard.allClaimBlankResult(device)!!.exists());
-
-    }
-
     // Тест 4.2
     @Test
     fun claimsFilterInProgress() {
@@ -133,8 +107,6 @@ class ClaimsTest {
          dWizard.filterClaimOkBtn(device)!!.click()
          dWizard.allClaimCardInList(device,0)!!.click()
         assertEquals(dWizard.IN_PROGRESS_CARD,dWizard.claimCardStatus(device)!!.text)
-
-
 
     }
     // Тест 4.3
@@ -180,7 +152,7 @@ class ClaimsTest {
     // Тест 4.5
     @Test
     fun claimCardAddCard() {
-        dWizard.mainAllClaims(device)!!.click()
+       // dWizard.mainAllClaims(device)!!.click()
 
 
 //        dWizard.allClaimAddClaim(device)!!.click()

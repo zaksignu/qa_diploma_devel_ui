@@ -20,11 +20,6 @@ class MainMenuTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;
 
-
-    private val LAUNCH_TIMEOUT = 5000L
-    private val  LOGIN_CORRECT = "login2"
-    private val  PASS_CORRECT = "password2"
-
     @Before
     fun startMainActivityFromHomeScreen() {
         // Initialize UiDevice instance
@@ -40,7 +35,7 @@ class MainMenuTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT)
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -48,7 +43,7 @@ class MainMenuTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -57,7 +52,7 @@ class MainMenuTest {
                 By.pkg(packageName)
                     .depth(0)
             ),
-            LAUNCH_TIMEOUT
+            dWizard.LAUNCH_TIMEOUT
         )
        // device.waitForIdle(1500L)
 
@@ -133,11 +128,6 @@ class MainMenuTest {
         dWizard.nameCancel().click()
         dWizard.claimCardReturnBtn(device)!!.click()
 
-//        assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
-//        val longBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
-//        dWizard.mainBlockCollapseBtn(device,1)!!.click()
-//        val shortBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
-//        assertTrue(longBlock>shortBlock)
     }
 
     // Тест 2.7

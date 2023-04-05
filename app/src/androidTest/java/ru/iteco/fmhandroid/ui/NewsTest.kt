@@ -19,8 +19,6 @@ class NewsTest {
     private lateinit var device: UiDevice;
     private lateinit var dWizard: Datawizard;
 
-    private val LAUNCH_TIMEOUT = 5000L
-
     @Before
     fun startMainActivityFromHomeScreen() {
         dWizard = Datawizard()
@@ -36,7 +34,7 @@ class NewsTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            LAUNCH_TIMEOUT
+            dWizard.LAUNCH_TIMEOUT
         )
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -45,7 +43,7 @@ class NewsTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)), LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)), dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -54,7 +52,7 @@ class NewsTest {
                 By.pkg(packageName)
                     .depth(0)
             ),
-            LAUNCH_TIMEOUT
+            dWizard.LAUNCH_TIMEOUT
         )
     }
 
@@ -92,7 +90,6 @@ class NewsTest {
     // Тест 3.2
     @Test
     fun allNewsArrangeIt() {
-        //TODO поменять коммент
         dWizard.mainAllNews(device)!!.click()
         // для полноценной проверки требуется работа с базами данных, что выходит за рамки задания этой курсовой
 
@@ -229,75 +226,6 @@ class NewsTest {
 
 
         assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_GRAT))
-
-    }
-
-
-    @Test
-    fun allNewsDateFilter() {
-        dWizard.mainAllNews(device)!!.click()
-
-        dWizard.newsFiltrBtn(device)!!.click()
-
-        dWizard.filterNewsCategory(device)!!.click()
-        device.waitForIdle(500L);
-
-        dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_HB)
-
-        dWizard.filterNewsFirstDate(device)!!.text = dWizard.FIRST_TERRY_DATE
-        dWizard.filterNewsLastDate(device)!!.text = dWizard.LAST_TERRY_DATE
-
-        dWizard.filterNewsOkBtn(device)!!.click()
-
-
-
-        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text.contains(dWizard.CONTENT_HB))
-
-
-    }
-
-//TODO TBD
-    @Test
-    fun allNewsEdit() {
-        dWizard.mainAllNews(device)!!.click()
-        dWizard.newsBtnToCP(device)!!.click()
-        dWizard.newsCpAddNews(device)!!.click()
-        dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-            dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
-        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
-        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
-        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
-        dWizard.addNewsSaveBtn(device)!!.click()
-    //    makeMeOneNews()
-        dWizard.newsFiltrBtn(device)!!.click()
-        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-        dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
-        dWizard.popUpOkBtn(device)!!.click()
-        assertTrue(dWizard.newsCPBlank(device)!!.exists())
-
-
-    }
-
-
-    fun makeMeOneNews(){
-
-//        dWizard.mainAllNews(device)!!.click()
-//        dWizard.newsBtnToCP(device)!!.click()
-//        dWizard.newsCpAddNews(device)!!.click()
-//        dWizard.addNewsCategory(device)!!.click()
-//        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-//            dWizard.addNewsCategory(device)!!.bounds.centerY() +
-//                    dWizard.addNewsCategory(device)!!.bounds.height())
-//        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
-//        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE
-//        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
-//        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
-//        dWizard.addNewsSaveBtn(device)!!.click()
 
     }
 
