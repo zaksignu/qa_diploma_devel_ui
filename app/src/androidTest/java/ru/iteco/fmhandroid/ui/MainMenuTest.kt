@@ -14,8 +14,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
-@RunWith(AllureAndroidJUnit4::class)
-//@RunWith(AndroidJUnit4::class)
+
+@RunWith(AndroidJUnit4::class)
 class MainMenuTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;

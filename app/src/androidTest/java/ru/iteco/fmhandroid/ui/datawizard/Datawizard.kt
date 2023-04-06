@@ -278,6 +278,13 @@ class Datawizard() {
         );
     }
 
+    fun newsCpPublicDate(dev: UiDevice): UiObject? {
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_publication_date_text_view")
+                .instance(0)
+        );
+    }
+
     fun newsCpFilterActive(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/filter_news_active_material_check_box")

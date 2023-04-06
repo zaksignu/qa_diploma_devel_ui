@@ -18,8 +18,8 @@ import org.junit.runner.RunWith
 import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
 
-@RunWith(AllureAndroidJUnit4::class)
-//@RunWith(AndroidJUnit4::class)
+
+@RunWith(AndroidJUnit4::class)
 class ClaimsCardTest {
 
     private lateinit var device: UiDevice;

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
 import io.qameta.allure.android.runners.AllureAndroidJUnit4
@@ -15,8 +16,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 
-@RunWith(AllureAndroidJUnit4::class)
-//@RunWith(AndroidJUnit4::class)
+
+@RunWith(AndroidJUnit4::class)
 class NewsControlPanelTest {
     private lateinit var device: UiDevice;
     private lateinit var dWizard: Datawizard;
@@ -258,7 +259,6 @@ class NewsControlPanelTest {
                     dWizard.addNewsCategory(device)!!.bounds.height())
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
         dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
         dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
         dWizard.addNewsSaveBtn(device)!!.click()
 
@@ -275,7 +275,6 @@ class NewsControlPanelTest {
 
 
     // Тест 3.20
-    //TODO доделать ассерт
 
     @Test
     fun newsPanelEditTitle() {
@@ -293,7 +292,6 @@ class NewsControlPanelTest {
         dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
         dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
         dWizard.addNewsSaveBtn(device)!!.click()
-        var qaqa = dWizard.newsNthCardTitle(device,0)
         device.waitForIdle(500L);
         //Выводим новость через фыильтр по дате
         dWizard.newsFiltrBtn(device)!!.click()
@@ -308,13 +306,11 @@ class NewsControlPanelTest {
         dWizard.addNewsSaveBtn(device)!!.click()
 
         dWizard.newsNthCardTitle(device,0)!!.click()
-
         device.waitForIdle(500L);
 
-        assertEquals( dWizard.ADD_NEWS_TITLE_EDITED, dWizard.newsNthCardTitle(device,0)!!.text.toString())
-
+        val title = dWizard.newsNthCardTitle(device,0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_EDITED,title)
         //Удаляем добавленную новость
-
         dWizard.newsFiltrBtn(device)!!.click()
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
@@ -322,13 +318,10 @@ class NewsControlPanelTest {
         dWizard.newsCpDeleteNews(device,0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
 
-
-
     }
 
 
     // Тест 3.21
-    //TODO доделать ассерт.Остальное работает
 //
     @Test
     fun newsPanelEditCategory() {
@@ -386,6 +379,8 @@ class NewsControlPanelTest {
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
 
+        val title = dWizard.newsNthCardTitle(device,0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG,title)
         //Удаляем добавленную новость
 
         dWizard.newsFiltrBtn(device)!!.click()
@@ -397,12 +392,7 @@ class NewsControlPanelTest {
 
     }
 
-
-    ////
-
     // Тест 3.22
-    //TODO доделать ассерт.Остльное работает
-
     @Test
     fun newsPanelEditDate() {
         dWizard.mainAllNews(device)!!.click()
@@ -442,7 +432,8 @@ class NewsControlPanelTest {
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_EDITED
         dWizard.filterNewsOkBtn(device)!!.click()
 
-
+        val date = dWizard.newsCpPublicDate(device)!!.text
+        assertEquals(dWizard.ADD_NEWS_DATE_EDITED,date)
         //Удаляем добавленную новость
 
         dWizard.newsFiltrBtn(device)!!.click()
@@ -499,7 +490,6 @@ class NewsControlPanelTest {
 
         assertTrue( dWizard.newsCpNthNewsDescription(device,0)!!.text.toString() == dWizard.ADD_NEWS_DESCR_EDITED.toString())
 
-
         //Удаляем добавленную новость
 
         dWizard.newsFiltrBtn(device)!!.click()
@@ -514,7 +504,6 @@ class NewsControlPanelTest {
     }
 
     // Тест 3.24
-    //TODO: добавить ассерты
     @Test
     fun newsPanelEditStatusActive(){
 
@@ -569,13 +558,22 @@ class NewsControlPanelTest {
     dWizard.newsCpFilterInActive(device)!!.click()
     dWizard.filterNewsOkBtn(device)!!.click()
 
+        val title = dWizard.newsNthCardTitle(device,0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG,title)
 
+        //Удаляем добавленную новость
 
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
     }
 
 
 //3.25
-    //TODO: добавить ассерты
+
     @Test
     fun newsPanelEditStatusNotActive(){
 
@@ -619,6 +617,17 @@ class NewsControlPanelTest {
         dWizard.newsCpFilterActive(device)!!.click()
         dWizard.filterNewsOkBtn(device)!!.click()
 
+    val title = dWizard.newsNthCardTitle(device,0)!!.text
+    assertEquals(dWizard.ADD_NEWS_TITLE_ORIG,title)
+
+    //Удаляем добавленную новость
+
+    dWizard.newsFiltrBtn(device)!!.click()
+    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+    dWizard.filterNewsOkBtn(device)!!.click()
+    dWizard.newsCpDeleteNews(device,0)!!.click()
+    dWizard.popUpOkBtn(device)!!.click()
 
 
     }

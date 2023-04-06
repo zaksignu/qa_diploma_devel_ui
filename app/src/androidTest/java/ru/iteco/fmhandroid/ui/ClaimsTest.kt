@@ -20,8 +20,8 @@ import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-@RunWith(AllureAndroidJUnit4::class)
-//@RunWith(AndroidJUnit4::class)
+
+@RunWith(AndroidJUnit4::class)
 class ClaimsTest {
     private lateinit var device: UiDevice;
     private lateinit var  dWizard : Datawizard;
@@ -149,41 +149,7 @@ class ClaimsTest {
         assertTrue(dWizard.allClaimCardInList(device,0)!!.exists());
     }
 
-    // Тест 4.5
-    @Test
-    fun claimCardAddCard() {
-       // dWizard.mainAllClaims(device)!!.click()
 
-
-//        dWizard.allClaimAddClaim(device)!!.click()
-//        val dat
-    //        eTime = LocalDateTime.now()
-////               .format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
-//            .format(DateTimeFormatter.ofPattern("dd.MM.yyy"))
-//
-//        dWizard.claimCreateTitle(device)!!.text = dWizard.CLAIM_CREATE_TITLE
-//        dWizard.claimCreateExecutor(device)!!.click()
-//                dWizard.clickIt(device,dWizard.claimCreateExecutor(device)!!.bounds.centerX(),
-//            dWizard.claimCreateExecutor(device)!!.bounds.centerY() + dWizard.claimCreateExecutor(device)!!.bounds.height())
-//        dWizard.claimCreateDate(device)!!.text = dWizard.CLAIM_CREATE_DATE
-//     //  dWizard.claimCreateDate(device)!!.text = dateTime
-//        //    dWizard.CLAIM_CREATE_DATE
-//        dWizard.claimCreateTime(device)!!.text = dWizard.CLAIM_CREATE_TIME
-//        dWizard.claimCreateDescription(device)!!.text = dWizard.CLAIM_CREATE_DESCRIPTION
-//dWizard.claimCreateSaveBtn(device)
-
-
-
-//            val dateTime = LocalDateTime.now()
-//             //   .format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
-//                .format(DateTimeFormatter.ofPattern("dd.MM.yyy"))
-//        Log.d(ContentValues.TAG, "///////1");
-//        Log.d(ContentValues.TAG,dateTime);
-         //   println(dateTime) // 01 января 2017 г., 22:27:41
-
-
-//TODO;;;;
-    }
 
 
 
