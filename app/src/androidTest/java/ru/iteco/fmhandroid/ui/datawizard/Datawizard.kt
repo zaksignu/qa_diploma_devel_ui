@@ -6,7 +6,6 @@ import androidx.test.uiautomator.*
 
 class Datawizard() {
 
-    //private lateinit var device: UiDevice;
     val LAUNCH_TIMEOUT = 500L
 
     val SIGN_IN = "SIGN IN"
@@ -23,28 +22,22 @@ class Datawizard() {
     val EXECUTED_CARD = "Executed"
     val CANCELED_CARD = "Canceled"
 
-    var COORD_X = 540;
-    var COORD_Y_ANNOY = 500;
-    var COORD_Y_HB = 700;
-    var COORD_Y_SALAR = 900;
-    var COORD_Y_UNION = 1000;
-    var COORD_Y_HOL = 1100;
-    var COORD_Y_MASS = 1200;
-    var COORD_Y_GRAT = 1400;
+    var COORD_X = 540
+    var COORD_Y_ANNOY = 500
+    var COORD_Y_HB = 700
+    var COORD_Y_SALAR = 900
+    var COORD_Y_UNION = 1000
+    var COORD_Y_HOL = 1100
+    var COORD_Y_MASS = 1200
+    var COORD_Y_GRAT = 1400
 
-    var COORD_D_Y_ANNOY = 150;
-    var COORD_D_Y_HB = 300;
-    var COORD_D_Y_SALAR = 450;
-    var COORD_D_Y_UNION = 600;
-    //   var COORD_Y_HOL = 1100;
-    //  var COORD_Y_MASS = 1200;
-    //   var COORD_Y_GRAT = 1400;
-
+    var COORD_D_Y_ANNOY = 150
+    var COORD_D_Y_HB = 300
+    var COORD_D_Y_SALAR = 450
+    var COORD_D_Y_UNION = 600
 
     val FIRST_ANNOY_DATE = "12.01.2023"
     val LAST_ANNOY_DATE = "25.01.2023"
-    val FIRST_TERRY_DATE = "08.01.2023"
-    val LAST_TERRY_DATE = "31.01.2023"
 
     val CONTENT_ANNOY = "Объявление"
     val CONTENT_HB = "День рождения"
@@ -53,7 +46,6 @@ class Datawizard() {
     val CONTENT_HOL = "Праздник"
     val CONTENT_MASS = "Массаж"
     val CONTENT_GRAT = "Благодарность"
-    //  val CONTENT_HB = "Terry"
 
     val LOGIN_CORRECT = "login2"
     val LOGIN_INCORRECT = "login"
@@ -155,8 +147,7 @@ class Datawizard() {
     fun mainTradeMark(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view"))
-        //return  UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view").instance(0))
-    }
+     }
 
     fun mainUsers(dev: UiDevice): UiObject? {
         return dev.findObject(
@@ -215,14 +206,6 @@ class Datawizard() {
             UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_claim_include_on_fragment_main")
                 .instance(0)
         );
-    }
-
-
-    fun mainClaimAddNew(dev: UiDevice): UiObject? {
-        return allClaimAddClaim(dev)
-//        dev.findObject(
-//            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button").instance(0)
-//        );
     }
 
 
@@ -398,26 +381,17 @@ class Datawizard() {
     fun editNewsCategory(dev: UiDevice): UiObject? {
 
         return addNewsCategory(dev)
-//        dev.findObject(
-//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
-//                .instance(0)
-        //   );
+
     }
 
     fun editNewsDate(dev: UiDevice): UiObject? {
         return addNewsDate(dev)
-//        dev.findObject(
-//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_publish_date_text_input_edit_text")
-//                .instance(0)
-//        );
+
     }
 
     fun editNewsDescription(dev: UiDevice): UiObject? {
         return addNewsDescription(dev)
-//        dev.findObject(
-//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_description_text_input_edit_text")
-//                .instance(0)
-//        );
+
     }
 
 //About page
@@ -508,11 +482,7 @@ class Datawizard() {
 
     fun claimCreateSaveBtn(dev: UiDevice): UiObject? {
         return addNewsSaveBtn(dev)
-//
-//        dev.findObject(
-//            UiSelector().resourceId("ru.iteco.fmhandroid:id/save_button")
-//                .instance(0)
-//        );
+
     }
     //All claims page
 
@@ -576,10 +546,7 @@ class Datawizard() {
 
     fun filterNewsCategory(dev: UiDevice): UiObject? {
         return addNewsCategory(dev)
-//        dev.findObject(
-//            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
-//                .instance(0)
-//        );
+
     }
 
     fun filterNewsOkBtn(dev: UiDevice): UiObject? {
