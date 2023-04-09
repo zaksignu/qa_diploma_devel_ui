@@ -24,11 +24,11 @@ import java.time.format.DateTimeFormatter
 @RunWith(AndroidJUnit4::class)
 class ClaimsTest {
     private lateinit var device: UiDevice;
-    private lateinit var  dWizard : Datawizard;
+    private lateinit var dWizard: Datawizard;
 
     @Before
     fun startMainActivityFromHomeScreen() {
-        dWizard  = Datawizard()
+        dWizard = Datawizard()
         // Initialize UiDevice instance
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
@@ -41,7 +41,8 @@ class ClaimsTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            dWizard.LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT
+        )
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -49,7 +50,7 @@ class ClaimsTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)), dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -60,6 +61,24 @@ class ClaimsTest {
             ),
             dWizard.LAUNCH_TIMEOUT
         )
+        try {
+
+            dWizard.mainTradeMark(device)!!.isEnabled()
+
+        } catch (e: UiObjectNotFoundException) {
+            dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
+            dWizard.authPasswordField().text = dWizard.PASS_CORRECT
+            dWizard.nameSignIn().click()
+            device.wait(
+                Until.findObject(
+                    By.res(
+                        packageName,
+                        "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+                    )
+                ),
+                500 /* wait 500ms */
+            )
+        }
 
 
     }
@@ -80,7 +99,7 @@ class ClaimsTest {
     fun mainMenuAllClaims() {
         dWizard.mainAllClaims(device)!!.click()
 
-        assertTrue(dWizard.allClaimCardInList(device,0)!!.exists());
+        assertTrue(dWizard.allClaimCardInList(device, 0)!!.exists());
     }
 
     // Тест 4.1
@@ -92,8 +111,8 @@ class ClaimsTest {
         dWizard.filterClaimInProgress(device)!!.click()
         dWizard.filterClaimOkBtn(device)!!.click()
 
-        dWizard.allClaimCardInList(device,0)!!.click()
-        assertEquals(dWizard.OPEN_CARD,dWizard.claimCardStatus(device)!!.text)
+        dWizard.allClaimCardInList(device, 0)!!.click()
+        assertEquals(dWizard.OPEN_CARD, dWizard.claimCardStatus(device)!!.text)
 
     }
 
@@ -102,28 +121,30 @@ class ClaimsTest {
     fun claimsFilterInProgress() {
 
         dWizard.mainAllClaims(device)!!.click()
-          dWizard.allClaimFilterBtn(device)!!.click()
+        dWizard.allClaimFilterBtn(device)!!.click()
         dWizard.filterClaimOk(device)!!.click()
-         dWizard.filterClaimOkBtn(device)!!.click()
-         dWizard.allClaimCardInList(device,0)!!.click()
-        assertEquals(dWizard.IN_PROGRESS_CARD,dWizard.claimCardStatus(device)!!.text)
+        dWizard.filterClaimOkBtn(device)!!.click()
+        dWizard.allClaimCardInList(device, 0)!!.click()
+        assertEquals(dWizard.IN_PROGRESS_CARD, dWizard.claimCardStatus(device)!!.text)
 
     }
+
     // Тест 4.3
     @Test
     fun claimsFilterExecuted() {
         dWizard.mainAllClaims(device)!!.click()
 
         dWizard.allClaimFilterBtn(device)!!.click()
-         dWizard.filterClaimOk(device)!!.click()
-         dWizard.filterClaimInProgress(device)!!.click()
-         dWizard.filterClaimExecuted(device)!!.click()
+        dWizard.filterClaimOk(device)!!.click()
+        dWizard.filterClaimInProgress(device)!!.click()
+        dWizard.filterClaimExecuted(device)!!.click()
         dWizard.filterClaimOkBtn(device)!!.click()
 
-        dWizard.allClaimCardInList(device,0)!!.click()
-        assertEquals(dWizard.EXECUTED_CARD,dWizard.claimCardStatus(device)!!.text)
+        dWizard.allClaimCardInList(device, 0)!!.click()
+        assertEquals(dWizard.EXECUTED_CARD, dWizard.claimCardStatus(device)!!.text)
 
     }
+
     // Тест 4.4
     @Test
     fun claimsFilterCanceled() {
@@ -136,8 +157,8 @@ class ClaimsTest {
         dWizard.filterClaimCancelled(device)!!.click()
         dWizard.filterClaimOkBtn(device)!!.click()
 
-        dWizard.allClaimCardInList(device,0)!!.click()
-        assertEquals(dWizard.CANCELED_CARD,dWizard.claimCardStatus(device)!!.text)
+        dWizard.allClaimCardInList(device, 0)!!.click()
+        assertEquals(dWizard.CANCELED_CARD, dWizard.claimCardStatus(device)!!.text)
     }
 
 
@@ -145,12 +166,9 @@ class ClaimsTest {
     @Test
     fun claimsOneCard() {
         dWizard.mainAllClaims(device)!!.click()
-        dWizard.allClaimCardInList(device,0)!!.click()
-        assertTrue(dWizard.allClaimCardInList(device,0)!!.exists());
+        dWizard.allClaimCardInList(device, 0)!!.click()
+        assertTrue(dWizard.allClaimCardInList(device, 0)!!.exists());
     }
-
-
-
 
 
 }

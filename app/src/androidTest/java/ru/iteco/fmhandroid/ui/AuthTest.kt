@@ -1,7 +1,9 @@
 package ru.iteco.fmhandroid.ui
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.EditText
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,6 +11,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.*
 import io.qameta.allure.android.runners.AllureAndroidJUnit4
+import okhttp3.internal.wait
 import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert.*
@@ -43,9 +46,7 @@ class AuthTest {
             Until.hasObject(By.pkg(launcherPackage)),
             dWizard.LAUNCH_TIMEOUT
         )
-        // Launch the blueprint app
-        // val context = ApplicationProvider.getApplicationContext<Context>()
-        // val packageName = context.packageName;
+
         val intent = context.packageManager.getLaunchIntentForPackage(packageName)
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
@@ -61,12 +62,26 @@ class AuthTest {
             ),
             dWizard.LAUNCH_TIMEOUT
         )
+        try {
+
+            if (dWizard.mainTradeMark(device)!!.isEnabled())
+            {
+                dWizard.mainUsers(device)!!.click()
+                dWizard.nameLogOut()!!.click()
+
+            }
+        } catch (e: UiObjectNotFoundException) {
+
+        }
+
     }
 
 
     //Тест 1.1.
     @Test
     fun authCorrectAuth() {
+
+
         dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
         dWizard.authPasswordField().text = dWizard.PASS_CORRECT
         dWizard.nameSignIn().click()
@@ -80,7 +95,8 @@ class AuthTest {
             500 /* wait 500ms */
         )
         assertTrue(dWizard.authPageAuthImage(device).exists());
-
+            dWizard.mainUsers(device)!!.click()
+            dWizard.nameLogOut()!!.click()
     }
 
     //Тест 1.2.

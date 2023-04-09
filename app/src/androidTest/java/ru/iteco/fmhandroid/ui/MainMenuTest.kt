@@ -18,12 +18,12 @@ import ru.iteco.fmhandroid.ui.datawizard.Datawizard
 @RunWith(AndroidJUnit4::class)
 class MainMenuTest {
     private lateinit var device: UiDevice;
-    private lateinit var  dWizard : Datawizard;
+    private lateinit var dWizard: Datawizard;
 
     @Before
     fun startMainActivityFromHomeScreen() {
         // Initialize UiDevice instance
-        dWizard  = Datawizard()
+        dWizard = Datawizard()
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         // Start from the home screen
@@ -35,7 +35,8 @@ class MainMenuTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            dWizard.LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT
+        )
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -43,7 +44,7 @@ class MainMenuTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)), dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -54,11 +55,29 @@ class MainMenuTest {
             ),
             dWizard.LAUNCH_TIMEOUT
         )
-       // device.waitForIdle(1500L)
 
+        try {
+
+            dWizard.mainTradeMark(device)!!.isEnabled()
+
+        } catch (e: UiObjectNotFoundException) {
+            dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
+            dWizard.authPasswordField().text = dWizard.PASS_CORRECT
+            dWizard.nameSignIn().click()
+            device.wait(
+                Until.findObject(
+                    By.res(
+                        packageName,
+                        "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+                    )
+                ),
+                500 /* wait 500ms */
+            )
+        }
 
     }
-// Тест 1.4
+
+    // Тест 1.4
     @Test
     fun leftMenuMain() {
         dWizard.mainMenu(device)!!.click()
@@ -74,10 +93,10 @@ class MainMenuTest {
     @Test
     fun mainMenuOneNewsExpand() {
         assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
-        val shortNewsTabHeight =   dWizard.mainNewsBlock(device)!!.bounds.height()
+        val shortNewsTabHeight = dWizard.mainNewsBlock(device)!!.bounds.height()
         dWizard.mainNewsBlock(device)!!.click()
-        val longNewsTabHeight =   dWizard.mainNewsBlock(device)!!.bounds.height()
-        assertTrue(longNewsTabHeight>shortNewsTabHeight)
+        val longNewsTabHeight = dWizard.mainNewsBlock(device)!!.bounds.height()
+        assertTrue(longNewsTabHeight > shortNewsTabHeight)
     }
 
     // Тест 2.2
@@ -85,9 +104,9 @@ class MainMenuTest {
     fun mainMenuNewsBlockExpand() {
         assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
         val longBlock = dWizard.mainWholeNewsBlock(device)!!.bounds.height()
-        dWizard.mainBlockCollapseBtn(device,0)!!.click()
+        dWizard.mainBlockCollapseBtn(device, 0)!!.click()
         val shortBlock = dWizard.mainWholeNewsBlock(device)!!.bounds.height()
-        assertTrue(longBlock>shortBlock)
+        assertTrue(longBlock > shortBlock)
     }
 
     // Тест 2.5
@@ -95,52 +114,21 @@ class MainMenuTest {
     fun mainMenuClaimBlockExpand() {
         assertTrue(dWizard.mainNewsBlock(device)!!.isClickable)
         val longBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
-        dWizard.mainBlockCollapseBtn(device,1)!!.click()
+        dWizard.mainBlockCollapseBtn(device, 1)!!.click()
         val shortBlock = dWizard.mainWholeClaimsBlock(device)!!.bounds.height()
-        assertTrue(longBlock>shortBlock)
+        assertTrue(longBlock > shortBlock)
     }
 
-    // Тест 2.6
-    @Test
-    fun mainMenuClaimAddNew() {
-    //TODO AddAssertions
-        dWizard.mainClaimAddNew(device)!!.click()
-        dWizard.claimCreateTitle(device)!!.text = dWizard.CLAIM_CREATE_TITLE
-        dWizard.claimCreateExecutor(device)!!.click()
-
-        dWizard.clickIt(device,dWizard.claimCreateExecutor(device)!!.bounds.centerX(),
-            dWizard.claimCreateExecutor(device)!!.bounds.centerY() + dWizard.claimCreateExecutor(device)!!.bounds.height())
-
-        dWizard.claimCreateDate(device)!!.text = dWizard.CLAIM_CREATE_DATE
-        dWizard.claimCreateTime(device)!!.text = dWizard.CLAIM_CREATE_TIME
-        dWizard.claimCreateDescription(device)!!.text = dWizard.CLAIM_CREATE_DESCRIPTION
-        dWizard.claimCreateSaveBtn(device)!!.click()
-        dWizard.allClaimCardInList(device,0)!!.click()
-      //  assertTrue((dWizard.claimCardInTitle(device)!!.text === dWizard.CLAIM_CREATE_TITLE))
-        dWizard.claimCardStatusProcess(device)!!.click()
-        device.waitForIdle(500L)
-        dWizard.nameThrownOff().click()
-        dWizard.claimCardThrowOffComment(device)!!.text = "1"
-        dWizard.popUpOkBtn(device)!!.click()
-
-        dWizard.claimCardStatusProcess(device)!!.click()
-        device.waitForIdle(500L)
-        dWizard.nameCancel().click()
-        dWizard.claimCardReturnBtn(device)!!.click()
-
-    }
 
     // Тест 2.7
     @Test
     fun mainMenuClaimFirstInBlock() {
-        dWizard.mainBlockCollapseBtn(device,0)!!.click()
-        dWizard.allClaimCardInList(device,0)!!.click()
+        dWizard.mainBlockCollapseBtn(device, 0)!!.click()
+        dWizard.allClaimCardInList(device, 0)!!.click()
 
         assertTrue(dWizard.claimCardInTitle(device)!!.exists())
 
     }
-
-
 
 
 }

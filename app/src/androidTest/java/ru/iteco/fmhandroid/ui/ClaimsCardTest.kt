@@ -60,7 +60,24 @@ class ClaimsCardTest {
                 dWizard.LAUNCH_TIMEOUT
             )
 
+            try {
 
+                dWizard.mainTradeMark(device)!!.isEnabled()
+
+            } catch (e: UiObjectNotFoundException) {
+                dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
+                dWizard.authPasswordField().text = dWizard.PASS_CORRECT
+                dWizard.nameSignIn().click()
+                device.wait(
+                    Until.findObject(
+                        By.res(
+                            packageName,
+                            "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+                        )
+                    ),
+                    500 /* wait 500ms */
+                )
+            }
         }
 
 

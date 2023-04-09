@@ -43,7 +43,8 @@ class AboutTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            dWizard.LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT
+        )
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -51,7 +52,7 @@ class AboutTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)), dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -62,17 +63,35 @@ class AboutTest {
             ),
             dWizard.LAUNCH_TIMEOUT
         )
+        try {
+
+            dWizard.mainTradeMark(device)!!.isEnabled()
+
+        } catch (e: UiObjectNotFoundException) {
+            dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
+            dWizard.authPasswordField().text = dWizard.PASS_CORRECT
+            dWizard.nameSignIn().click()
+            device.wait(
+                Until.findObject(
+                    By.res(
+                        packageName,
+                        "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+                    )
+                ),
+                500 /* wait 500ms */
+            )
+        }
 
 
     }
 
-//Тест 1.7
+    //Тест 1.7
     @Test
     fun leftMenuAbout() {
         dWizard.mainMenu(device)!!.click()
         dWizard.nameAbout().click()
         device.waitForIdle(500L);
 
-        assertTrue( dWizard.aboutPrivacyBlock(device)!!.exists());
+        assertTrue(dWizard.aboutPrivacyBlock(device)!!.exists());
     }
 }

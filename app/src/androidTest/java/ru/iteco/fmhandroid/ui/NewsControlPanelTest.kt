@@ -38,7 +38,8 @@ class NewsControlPanelTest {
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
-            dWizard.LAUNCH_TIMEOUT)
+            dWizard.LAUNCH_TIMEOUT
+        )
         // Launch the blueprint app
         val context = ApplicationProvider.getApplicationContext<Context>()
         val packageName = context.packageName;
@@ -46,7 +47,7 @@ class NewsControlPanelTest {
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear out any previous instances
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(packageName)),dWizard.LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName)), dWizard.LAUNCH_TIMEOUT)
         //
         // Wait for the app to appear
 
@@ -57,7 +58,24 @@ class NewsControlPanelTest {
             ),
             dWizard.LAUNCH_TIMEOUT
         )
+        try {
 
+            dWizard.mainTradeMark(device)!!.isEnabled()
+
+        } catch (e: UiObjectNotFoundException) {
+            dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
+            dWizard.authPasswordField().text = dWizard.PASS_CORRECT
+            dWizard.nameSignIn().click()
+            device.wait(
+                Until.findObject(
+                    By.res(
+                        packageName,
+                        "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+                    )
+                ),
+                500 /* wait 500ms */
+            )
+        }
 
     }
 
@@ -76,7 +94,6 @@ class NewsControlPanelTest {
         assertTrue(!(firstTabText === secondTabText))
 
     }
-
 
 
     // Тест 3.10
@@ -129,7 +146,6 @@ class NewsControlPanelTest {
         device.waitForIdle(500L);
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_SALAR)
         device.waitForIdle(500L);
-
         dWizard.filterNewsOkBtn(device)!!.click()
 
 
@@ -148,7 +164,6 @@ class NewsControlPanelTest {
         device.waitForIdle(500L);
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_UNION)
         device.waitForIdle(500L);
-
         dWizard.filterNewsOkBtn(device)!!.click()
 
 
@@ -167,7 +182,6 @@ class NewsControlPanelTest {
         device.waitForIdle(500L);
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_HOL)
         device.waitForIdle(500L);
-
         dWizard.filterNewsOkBtn(device)!!.click()
 
 
@@ -187,7 +201,6 @@ class NewsControlPanelTest {
         device.waitForIdle(500L);
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_MASS)
         device.waitForIdle(500L);
-
         dWizard.filterNewsOkBtn(device)!!.click()
 
 
@@ -206,7 +219,6 @@ class NewsControlPanelTest {
         device.waitForIdle(500L);
         dWizard.clickIt(device, dWizard.COORD_X, dWizard.COORD_Y_GRAT)
         device.waitForIdle(500L);
-
         dWizard.filterNewsOkBtn(device)!!.click()
 
 
@@ -222,9 +234,11 @@ class NewsControlPanelTest {
         dWizard.newsCpAddNews(device)!!.click()
 
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
         dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
@@ -234,7 +248,7 @@ class NewsControlPanelTest {
         dWizard.mainMenu(device)!!.click()
         dWizard.nameMain().click()
 
-        assertTrue( dWizard.newsNthCardTitle(device,0)!!.text == dWizard.ADD_NEWS_TITLE_ORIG)
+        assertTrue(dWizard.newsNthCardTitle(device, 0)!!.text == dWizard.ADD_NEWS_TITLE_ORIG)
 
         dWizard.mainAllNews(device)!!.click()
         dWizard.newsBtnToCP(device)!!.click()
@@ -242,10 +256,11 @@ class NewsControlPanelTest {
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
 
     }
+
     // Тест 3.19
     @Test
     fun newsPanelDelete() {
@@ -254,9 +269,11 @@ class NewsControlPanelTest {
         dWizard.newsCpAddNews(device)!!.click()
 
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
         dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
@@ -266,7 +283,7 @@ class NewsControlPanelTest {
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
         assertTrue(dWizard.newsCPBlank(device)!!.exists())
 
@@ -282,40 +299,42 @@ class NewsControlPanelTest {
         dWizard.mainAllNews(device)!!.click()
         dWizard.newsBtnToCP(device)!!.click()
         dWizard.newsCpAddNews(device)!!.click()
-    //Добавляем новость
+        //Добавляем новость
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
         dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
         dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
         dWizard.addNewsSaveBtn(device)!!.click()
         device.waitForIdle(500L);
-        //Выводим новость через фыильтр по дате
+        //Выводим новость через фильтр по дате
         dWizard.newsFiltrBtn(device)!!.click()
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
         device.waitForIdle(500L);
 
-    // Редактируем первую новость
-        dWizard.newsCpEditNews(device,0)!!.click()
+        // Редактируем первую новость
+        dWizard.newsCpEditNews(device, 0)!!.click()
         dWizard.editNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_EDITED
         dWizard.addNewsSaveBtn(device)!!.click()
 
-        dWizard.newsNthCardTitle(device,0)!!.click()
+        dWizard.newsNthCardTitle(device, 0)!!.click()
         device.waitForIdle(500L);
 
-        val title = dWizard.newsNthCardTitle(device,0)!!.text
-        assertEquals(dWizard.ADD_NEWS_TITLE_EDITED,title)
+        val title = dWizard.newsNthCardTitle(device, 0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_EDITED, title)
         //Удаляем добавленную новость
         dWizard.newsFiltrBtn(device)!!.click()
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
 
     }
@@ -332,9 +351,11 @@ class NewsControlPanelTest {
 
         //Добавляем новость
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
-                                dWizard.addNewsCategory(device)!!.bounds.centerY()+
-                                        dWizard.COORD_D_Y_ANNOY)
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX() - 100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.COORD_D_Y_ANNOY
+        )
 
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
         dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
@@ -347,47 +368,53 @@ class NewsControlPanelTest {
         dWizard.newsFiltrBtn(device)!!.click()
 
         dWizard.filterNewsCategory(device)!!.click();
-        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
-            dWizard.addNewsCategory(device)!!.bounds.centerY()+
-                    dWizard.COORD_D_Y_ANNOY)
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX() - 100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.COORD_D_Y_ANNOY
+        )
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
         device.waitForIdle(500L);
 
         // Редактируем  первую новость
-        dWizard.newsCpEditNews(device,0)!!.click()
+        dWizard.newsCpEditNews(device, 0)!!.click()
 
         // Редактируем категорию
         dWizard.filterNewsCategory(device)!!.click();
-        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
-            dWizard.addNewsCategory(device)!!.bounds.centerY()+
-                    dWizard.COORD_D_Y_HB)
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX() - 100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.COORD_D_Y_HB
+        )
 
         dWizard.addNewsSaveBtn(device)!!.click()
         device.waitForIdle(500L);
 
-       //фильтруем результат и получаем отредактируемую новость
+        //фильтруем результат и получаем отредактируемую новость
         dWizard.newsFiltrBtn(device)!!.click()
 
         dWizard.filterNewsCategory(device)!!.click();
-        dWizard.clickIt(device, dWizard.addNewsCategory(device)!!.bounds.centerX()-100,
-            dWizard.addNewsCategory(device)!!.bounds.centerY()+
-                    dWizard.COORD_D_Y_HB)
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX() - 100,
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.COORD_D_Y_HB
+        )
 
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
 
-        val title = dWizard.newsNthCardTitle(device,0)!!.text
-        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG,title)
+        val title = dWizard.newsNthCardTitle(device, 0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG, title)
         //Удаляем добавленную новость
 
         dWizard.newsFiltrBtn(device)!!.click()
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
 
     }
@@ -401,9 +428,11 @@ class NewsControlPanelTest {
 
         //Добавляем новость
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
 
 
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
@@ -420,7 +449,7 @@ class NewsControlPanelTest {
         dWizard.filterNewsOkBtn(device)!!.click()
         device.waitForIdle(500L);
         // Редактируем  первую новость
-        dWizard.newsCpEditNews(device,0)!!.click()
+        dWizard.newsCpEditNews(device, 0)!!.click()
         // Редактируем дату
         dWizard.editNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_EDITED
 
@@ -433,17 +462,15 @@ class NewsControlPanelTest {
         dWizard.filterNewsOkBtn(device)!!.click()
 
         val date = dWizard.newsCpPublicDate(device)!!.text
-        assertEquals(dWizard.ADD_NEWS_DATE_EDITED,date)
+        assertEquals(dWizard.ADD_NEWS_DATE_EDITED, date)
         //Удаляем добавленную новость
 
         dWizard.newsFiltrBtn(device)!!.click()
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_EDITED
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_EDITED
         dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
-
-
 
 
     }
@@ -458,9 +485,11 @@ class NewsControlPanelTest {
 
         //Добавляем новость
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
 
 
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
@@ -477,18 +506,23 @@ class NewsControlPanelTest {
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
         device.waitForIdle(500L);
-        dWizard.newsNthCard(device,0)!!.click()
+        dWizard.newsNthCard(device, 0)!!.click()
         // Редактируем  первую новость
-        dWizard.newsCpEditNews(device,0)!!.click()
+        dWizard.newsCpEditNews(device, 0)!!.click()
         // Редактируем описание
         dWizard.editNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_EDITED
 
 
         dWizard.addNewsSaveBtn(device)!!.click()
         device.waitForIdle(500L);
-        dWizard.newsNthCard(device,0)!!.click()
+        dWizard.newsNthCard(device, 0)!!.click()
 
-        assertTrue( dWizard.newsCpNthNewsDescription(device,0)!!.text.toString() == dWizard.ADD_NEWS_DESCR_EDITED.toString())
+        assertTrue(
+            dWizard.newsCpNthNewsDescription(
+                device,
+                0
+            )!!.text.toString() == dWizard.ADD_NEWS_DESCR_EDITED.toString()
+        )
 
         //Удаляем добавленную новость
 
@@ -496,86 +530,15 @@ class NewsControlPanelTest {
         dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
         dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
         dWizard.popUpOkBtn(device)!!.click()
-
 
 
     }
 
     // Тест 3.24
     @Test
-    fun newsPanelEditStatusActive(){
-
-    dWizard.mainAllNews(device)!!.click()
-    dWizard.newsBtnToCP(device)!!.click()
-    dWizard.newsCpAddNews(device)!!.click()
-
-    //Добавляем новость
-    dWizard.addNewsCategory(device)!!.click()
-    dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
-        dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                dWizard.addNewsCategory(device)!!.bounds.height())
-
-
-    dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
-    dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
-    dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
-    dWizard.addNewsSaveBtn(device)!!.click()
-    device.waitForIdle(500L);
-
-    //Выводим новость через фыильтр по дате
-    dWizard.newsFiltrBtn(device)!!.click()
-    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.newsCpFilterInActive(device)!!.click()
-    dWizard.filterNewsOkBtn(device)!!.click()
-    device.waitForIdle(500L);
-
-    // Редактируем  первую новость
-    dWizard.newsCpEditNews(device,0)!!.click()
-    // Редактируем статус
-    // т.к. при создаании новости по умолчанию у ней статус активен, то надо отредактировать статус в "неактивный" а затем в актиывный
-
-    dWizard.newsCpEditSwitchBox(device)!!.click()
-    dWizard.addNewsSaveBtn(device)!!.click()
-
-    dWizard.newsFiltrBtn(device)!!.click()
-    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.newsCpFilterActive(device)!!.click()
-    dWizard.filterNewsOkBtn(device)!!.click()
-
-    dWizard.newsCpEditNews(device,0)!!.click()
-
-    dWizard.newsCpEditSwitchBox(device)!!.click()
-    dWizard.addNewsSaveBtn(device)!!.click()
-
-    dWizard.newsFiltrBtn(device)!!.click()
-    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.newsCpFilterInActive(device)!!.click()
-    dWizard.filterNewsOkBtn(device)!!.click()
-
-        val title = dWizard.newsNthCardTitle(device,0)!!.text
-        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG,title)
-
-        //Удаляем добавленную новость
-
-        dWizard.newsFiltrBtn(device)!!.click()
-        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-        dWizard.filterNewsOkBtn(device)!!.click()
-        dWizard.newsCpDeleteNews(device,0)!!.click()
-        dWizard.popUpOkBtn(device)!!.click()
-    }
-
-
-//3.25
-
-    @Test
-    fun newsPanelEditStatusNotActive(){
+    fun newsPanelEditStatusActive() {
 
         dWizard.mainAllNews(device)!!.click()
         dWizard.newsBtnToCP(device)!!.click()
@@ -583,9 +546,11 @@ class NewsControlPanelTest {
 
         //Добавляем новость
         dWizard.addNewsCategory(device)!!.click()
-        dWizard.clickIt(device,dWizard.addNewsCategory(device)!!.bounds.centerX(),
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
             dWizard.addNewsCategory(device)!!.bounds.centerY() +
-                    dWizard.addNewsCategory(device)!!.bounds.height())
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
 
 
         dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
@@ -604,7 +569,7 @@ class NewsControlPanelTest {
         device.waitForIdle(500L);
 
         // Редактируем  первую новость
-        dWizard.newsCpEditNews(device,0)!!.click()
+        dWizard.newsCpEditNews(device, 0)!!.click()
         // Редактируем статус
         // т.к. при создаании новости по умолчанию у ней статус активен, то надо отредактировать статус в "неактивный" а затем в актиывный
 
@@ -617,17 +582,89 @@ class NewsControlPanelTest {
         dWizard.newsCpFilterActive(device)!!.click()
         dWizard.filterNewsOkBtn(device)!!.click()
 
-    val title = dWizard.newsNthCardTitle(device,0)!!.text
-    assertEquals(dWizard.ADD_NEWS_TITLE_ORIG,title)
+        dWizard.newsCpEditNews(device, 0)!!.click()
 
-    //Удаляем добавленную новость
+        dWizard.newsCpEditSwitchBox(device)!!.click()
+        dWizard.addNewsSaveBtn(device)!!.click()
 
-    dWizard.newsFiltrBtn(device)!!.click()
-    dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
-    dWizard.filterNewsOkBtn(device)!!.click()
-    dWizard.newsCpDeleteNews(device,0)!!.click()
-    dWizard.popUpOkBtn(device)!!.click()
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.newsCpFilterInActive(device)!!.click()
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+        val title = dWizard.newsNthCardTitle(device, 0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG, title)
+
+        //Удаляем добавленную новость
+
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
+    }
+
+
+//3.25
+
+    @Test
+    fun newsPanelEditStatusNotActive() {
+
+        dWizard.mainAllNews(device)!!.click()
+        dWizard.newsBtnToCP(device)!!.click()
+        dWizard.newsCpAddNews(device)!!.click()
+
+        //Добавляем новость
+        dWizard.addNewsCategory(device)!!.click()
+        dWizard.clickIt(
+            device, dWizard.addNewsCategory(device)!!.bounds.centerX(),
+            dWizard.addNewsCategory(device)!!.bounds.centerY() +
+                    dWizard.addNewsCategory(device)!!.bounds.height()
+        )
+
+
+        dWizard.addNewsTitle(device)!!.text = dWizard.ADD_NEWS_TITLE_ORIG
+        dWizard.addNewsDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.addNewsTime(device)!!.text = dWizard.ADD_NEWS_TIME
+        dWizard.addNewsDescription(device)!!.text = dWizard.ADD_NEWS_DESCR_ORIG
+        dWizard.addNewsSaveBtn(device)!!.click()
+        device.waitForIdle(500L);
+
+        //Выводим новость через фыильтр по дате
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.newsCpFilterInActive(device)!!.click()
+        dWizard.filterNewsOkBtn(device)!!.click()
+        device.waitForIdle(500L);
+
+        // Редактируем  первую новость
+        dWizard.newsCpEditNews(device, 0)!!.click()
+        // Редактируем статус
+        // т.к. при создаании новости по умолчанию у ней статус активен, то надо отредактировать статус в "неактивный" а затем в актиывный
+
+        dWizard.newsCpEditSwitchBox(device)!!.click()
+        dWizard.addNewsSaveBtn(device)!!.click()
+
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.newsCpFilterActive(device)!!.click()
+        dWizard.filterNewsOkBtn(device)!!.click()
+
+        val title = dWizard.newsNthCardTitle(device, 0)!!.text
+        assertEquals(dWizard.ADD_NEWS_TITLE_ORIG, title)
+
+        //Удаляем добавленную новость
+
+        dWizard.newsFiltrBtn(device)!!.click()
+        dWizard.filterNewsFirstDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsLastDate(device)!!.text = dWizard.ADD_NEWS_DATE_ORIG
+        dWizard.filterNewsOkBtn(device)!!.click()
+        dWizard.newsCpDeleteNews(device, 0)!!.click()
+        dWizard.popUpOkBtn(device)!!.click()
 
 
     }

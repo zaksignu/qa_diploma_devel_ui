@@ -7,9 +7,10 @@ import androidx.test.uiautomator.*
 class Datawizard() {
 
     //private lateinit var device: UiDevice;
-    val LAUNCH_TIMEOUT = 5000L
+    val LAUNCH_TIMEOUT = 500L
 
     val SIGN_IN = "SIGN IN"
+    val LOG_OUT = "Log out"
     val NEWS = "News"
     val MAIN = "Main"
     val ABOUT = "About"
@@ -35,9 +36,9 @@ class Datawizard() {
     var COORD_D_Y_HB = 300;
     var COORD_D_Y_SALAR = 450;
     var COORD_D_Y_UNION = 600;
- //   var COORD_Y_HOL = 1100;
-  //  var COORD_Y_MASS = 1200;
- //   var COORD_Y_GRAT = 1400;
+    //   var COORD_Y_HOL = 1100;
+    //  var COORD_Y_MASS = 1200;
+    //   var COORD_Y_GRAT = 1400;
 
 
     val FIRST_ANNOY_DATE = "12.01.2023"
@@ -52,12 +53,12 @@ class Datawizard() {
     val CONTENT_HOL = "Праздник"
     val CONTENT_MASS = "Массаж"
     val CONTENT_GRAT = "Благодарность"
-  //  val CONTENT_HB = "Terry"
+    //  val CONTENT_HB = "Terry"
 
-     val  LOGIN_CORRECT = "login2"
-     val  LOGIN_INCORRECT = "login"
-     val  PASS_CORRECT = "password2"
-     val  PASS_INCORRECT = "password"
+    val LOGIN_CORRECT = "login2"
+    val LOGIN_INCORRECT = "login"
+    val PASS_CORRECT = "password2"
+    val PASS_INCORRECT = "password"
 
     val CLAIM_CREATE_TITLE = "Бобриные специалисты"
 
@@ -89,6 +90,10 @@ class Datawizard() {
 
     fun nameSignIn(): UiObject {
         return UiObject(UiSelector().text(SIGN_IN))
+    }
+
+    fun nameLogOut(): UiObject {
+        return UiObject(UiSelector().text(LOG_OUT))
     }
 
     fun nameNews(): UiObject {
@@ -148,7 +153,8 @@ class Datawizard() {
     // Main page block
 
     fun mainTradeMark(dev: UiDevice): UiObject? {
-        return dev.findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view"))
+        return dev.findObject(
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view"))
         //return  UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).findObject(UiSelector().resourceId("ru.iteco.fmhandroid:id/trademark_image_view").instance(0))
     }
 
@@ -183,14 +189,14 @@ class Datawizard() {
     }
 
 
-    fun mainNewsBlockNewsPlateTitle(dev: UiDevice, i :Int): UiObject? {
+    fun mainNewsBlockNewsPlateTitle(dev: UiDevice, i: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_view")
                 .instance(i)
         );
     }
 
-    fun mainBlockCollapseBtn(dev: UiDevice, inst : Int): UiObject? {
+    fun mainBlockCollapseBtn(dev: UiDevice, inst: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/expand_material_button").instance(inst)
         );
@@ -199,17 +205,17 @@ class Datawizard() {
 
     fun mainWholeNewsBlock(dev: UiDevice): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_news_include_on_fragment_main").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_news_include_on_fragment_main")
+                .instance(0)
         );
     }
 
     fun mainWholeClaimsBlock(dev: UiDevice): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_claim_include_on_fragment_main").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/container_list_claim_include_on_fragment_main")
+                .instance(0)
         );
     }
-
-
 
 
     fun mainClaimAddNew(dev: UiDevice): UiObject? {
@@ -244,6 +250,7 @@ class Datawizard() {
             UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_material_card_view")
         )
     }
+
     fun newsNthCardTitle(dev: UiDevice, i: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_view").instance(i)
@@ -300,13 +307,14 @@ class Datawizard() {
     }
 
 
-    fun newsCpNthNewsDescription(dev: UiDevice, i :Int ): UiObject? {
+    fun newsCpNthNewsDescription(dev: UiDevice, i: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_description_text_view")
                 .instance(i)
         );
     }
-    fun newsCpEditNews(dev: UiDevice,  i : Int): UiObject? {
+
+    fun newsCpEditNews(dev: UiDevice, i: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/edit_news_item_image_view")
                 .instance(0)
@@ -320,7 +328,7 @@ class Datawizard() {
         );
     }
 
-    fun newsCpDeleteNews(dev: UiDevice, i : Int): UiObject? {
+    fun newsCpDeleteNews(dev: UiDevice, i: Int): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/delete_news_item_image_view")
                 .instance(i)
@@ -329,7 +337,8 @@ class Datawizard() {
 
     fun newsCPBlank(dev: UiDevice): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/control_panel_empty_news_list_text_view").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/control_panel_empty_news_list_text_view")
+                .instance(0)
         );
     }
 
@@ -377,12 +386,12 @@ class Datawizard() {
     }
 
 
-
     //Edit News block
     //TODO - its double
     fun editNewsTitle(dev: UiDevice): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_input_edit_text").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_title_text_input_edit_text")
+                .instance(0)
         );
     }
 
@@ -392,7 +401,7 @@ class Datawizard() {
 //        dev.findObject(
 //            UiSelector().resourceId("ru.iteco.fmhandroid:id/news_item_category_text_auto_complete_text_view")
 //                .instance(0)
-     //   );
+        //   );
     }
 
     fun editNewsDate(dev: UiDevice): UiObject? {
@@ -443,7 +452,8 @@ class Datawizard() {
 
     fun claimCardStatusProcess(dev: UiDevice): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/status_processing_image_button").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/status_processing_image_button")
+                .instance(0)
         );
     }
 
@@ -461,42 +471,42 @@ class Datawizard() {
     }
 
 
-    fun claimCreateTitle(dev: UiDevice): UiObject?{
+    fun claimCreateTitle(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/title_edit_text")
                 .instance(0)
         );
     }
 
-    fun claimCreateExecutor(dev: UiDevice): UiObject?{
+    fun claimCreateExecutor(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/executor_drop_menu_auto_complete_text_view")
                 .instance(0)
         );
     }
 
-    fun claimCreateDate(dev: UiDevice): UiObject?{
+    fun claimCreateDate(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/date_in_plan_text_input_edit_text")
                 .instance(0)
         );
     }
 
-    fun claimCreateTime(dev: UiDevice): UiObject?{
+    fun claimCreateTime(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/time_in_plan_text_input_edit_text")
                 .instance(0)
         );
     }
 
-    fun claimCreateDescription(dev: UiDevice): UiObject?{
+    fun claimCreateDescription(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/description_edit_text")
                 .instance(0)
         );
     }
 
-    fun claimCreateSaveBtn(dev: UiDevice): UiObject?{
+    fun claimCreateSaveBtn(dev: UiDevice): UiObject? {
         return addNewsSaveBtn(dev)
 //
 //        dev.findObject(
@@ -508,7 +518,8 @@ class Datawizard() {
 
     fun allClaimAddClaim(dev: UiDevice): UiObject? {
         return dev.findObject(
-            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button").instance(0)
+            UiSelector().resourceId("ru.iteco.fmhandroid:id/add_new_claim_material_button")
+                .instance(0)
         );
     }
 
@@ -530,7 +541,8 @@ class Datawizard() {
                 .instance(0)
         );
     }
-//Claims filter block
+
+    //Claims filter block
     fun filterClaimOk(dev: UiDevice): UiObject? {
         return dev.findObject(
             UiSelector().resourceId("ru.iteco.fmhandroid:id/item_filter_open").instance(0)

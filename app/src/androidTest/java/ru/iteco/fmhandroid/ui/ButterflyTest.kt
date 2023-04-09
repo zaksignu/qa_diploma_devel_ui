@@ -22,9 +22,6 @@ class ButterflyTest {
     private lateinit var device: UiDevice;
     private lateinit var dWizard: Datawizard;
 
-
-    // change this to your app's package name
-
     @Before
     fun startMainActivityFromHomeScreen() {
         dWizard = Datawizard()
@@ -61,6 +58,24 @@ class ButterflyTest {
             dWizard.LAUNCH_TIMEOUT
         )
 
+        try {
+
+            dWizard.mainTradeMark(device)!!.isEnabled()
+
+        } catch (e: UiObjectNotFoundException) {
+            dWizard.authLoginField().text = dWizard.LOGIN_CORRECT
+            dWizard.authPasswordField().text = dWizard.PASS_CORRECT
+            dWizard.nameSignIn().click()
+            device.wait(
+                Until.findObject(
+                    By.res(
+                        packageName,
+                        "ru.iteco.fmhandroid:id/authorization_image_button" // change to your button id
+                    )
+                ),
+                500 /* wait 500ms */
+            )
+        }
 
     }
 
