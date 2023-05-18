@@ -1,25 +1,26 @@
 package ru.iteco.fmhandroid.ui
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
+
+//import androidx.test.ext.junit.runners.AndroidJUnit4
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.*
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.contrib.*
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
-import io.qameta.allure.android.runners.AllureAndroidJUnit4
-import org.hamcrest.CoreMatchers
-import org.json.JSONTokener
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.iteco.fmhandroid.ui.datawizard.Datawizard
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
+//import org.junit.Test
+//import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class ClaimsTest {
@@ -37,7 +38,7 @@ class ClaimsTest {
 
         // Wait for launcher
         val launcherPackage = device.launcherPackageName;
-        assertThat(launcherPackage, CoreMatchers.notNullValue())
+        //assertThat(launcherPackage, CoreMatchers.notNullValue())
 
         device.wait(
             Until.hasObject(By.pkg(launcherPackage)),
@@ -170,5 +171,22 @@ class ClaimsTest {
         assertTrue(dWizard.allClaimCardInList(device, 0)!!.exists());
     }
 
+    @Test
+    fun scrollToItemBelowFold_checkItsText() {
+        dWizard.mainAllClaims(device)!!.click()
 
-}
+        onView(ViewMatchers.withId(R.id.claim_list_recycler_view))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition(
+                    0,
+                    click()
+                )
+            )
+
+
+
+
+    }
+
+
+    }

@@ -8,6 +8,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.firebase.crashlytics'
     id("io.qameta.allure")  version "2.11.2"
+//    id("com.android.application")
 //    id("io.qameta.allure-aggregate-report") version "2.11.2"
    // id 'io.qameta.allure'
 
@@ -36,13 +37,13 @@ android {
 
     defaultConfig {
         applicationId "ru.iteco.fmhandroid"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 32
         versionCode 14
         versionName "1.0.0"
 
-      //  testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        testInstrumentationRunner "io.qameta.allure.android.runners.AllureAndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+       // testInstrumentationRunner "io.qameta.allure.android.runners.AllureAndroidJUnitRunner"
         }
 
 
@@ -73,6 +74,8 @@ android {
 
 
 dependencies {
+    implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     testImplementation 'junit:junit:4.12'
     def retrofit_version = "2.9.0"
     def retrofit_gson_version = "2.9.0"
@@ -90,11 +93,13 @@ dependencies {
     def swipe_refresh_version = '1.1.0'
 
 // Testing-only dependencies
-    def test_core_version = "1.4.0"
-    def test_junit_version = "1.1.3"
-    androidTestImplementation "androidx.test:core-ktx:$test_core_version"
-    androidTestImplementation "androidx.test.ext:junit-ktx:$test_junit_version"
-    androidTestImplementation "androidx.test:runner:$test_core_version"
+
+    // Espresso Testing
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
+
+
     // UiAutomator Testing
     def uiautomator_version = "2.2.0"
     def hamcrest_version = "1.3"
@@ -106,6 +111,8 @@ dependencies {
     androidTestImplementation "io.qameta.allure:allure-kotlin-commons:2.4.0"
     androidTestImplementation "io.qameta.allure:allure-kotlin-junit4:2.4.0"
     androidTestImplementation "io.qameta.allure:allure-kotlin-android:2.4.0"
+
+
     //allure
 
 

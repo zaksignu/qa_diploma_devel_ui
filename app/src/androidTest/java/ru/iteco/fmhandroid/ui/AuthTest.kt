@@ -97,6 +97,7 @@ class AuthTest {
         assertTrue(dWizard.authPageAuthImage(device).exists());
             dWizard.mainUsers(device)!!.click()
             dWizard.nameLogOut()!!.click()
+
     }
 
     //Тест 1.2.
