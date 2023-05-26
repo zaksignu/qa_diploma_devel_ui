@@ -2,8 +2,10 @@ package ru.iteco.fmhandroid.ui
 
 
 //import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions.*
@@ -175,14 +177,13 @@ class ClaimsTest {
     fun scrollToItemBelowFold_checkItsText() {
         dWizard.mainAllClaims(device)!!.click()
 
-        onView(ViewMatchers.withId(R.id.claim_list_recycler_view))
+        onView(ViewMatchers.withId(R.id.description_material_text_view))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition(
                     0,
                     click()
                 )
             )
-
 
 
 
